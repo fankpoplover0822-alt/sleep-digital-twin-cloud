@@ -1,0 +1,9 @@
+patient_id,study_id,treatment,baseline_ahi,follow_up_ahi,follow_up_days,outcome_status,baseline_min_spo2,follow_up_min_spo2,symptom_improved,adherence_rate,adverse_event
+TEST_P001,TEST_FU001,CPAP,36.0,6.0,90,confirmed,78,91,1,0.92,0
+TEST_P002,TEST_FU002,CPAP,31.0,8.0,60,confirmed,80,90,1,0.85,0
+TEST_P003,TEST_FU003,APAP,28.0,9.0,90,confirmed,82,91,1,0.88,0
+TEST_P004,TEST_FU004,APAP,24.0,11.0,60,confirmed,83,89,1,0.76,0
+TEST_P005,TEST_FU005,SURGERY,42.0,14.0,180,confirmed,75,87,1,1.00,0
+TEST_P006,TEST_FU006,SURGERY,33.0,18.0,180,confirmed,79,86,0,1.00,1
+TEST_P007,TEST_FU007,SLEEP_ARCHITECTURE_MODULATING_MEDICATION_REVIEW,18.0,13.0,60,confirmed,86,88,1,0.90,0
+TEST_P008,TEST_FU008,SLEEP_ARCHITECTURE_MODULATING_MEDICATION_REVIEW,16.0,15.0,60,confirmed,87,87,0,0.65,1

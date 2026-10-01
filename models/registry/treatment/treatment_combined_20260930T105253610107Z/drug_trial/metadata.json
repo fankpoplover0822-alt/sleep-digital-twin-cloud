@@ -1,0 +1,85 @@
+{
+  "model_version": "drug_trial_20260911T120913810913Z",
+  "created_at": "2026-09-11T12:09:13+08:00",
+  "model_type": "Ridge research challenger",
+  "treatment": "SLEEP_ARCHITECTURE_MODULATING_MEDICATION_REVIEW",
+  "drug_name": "UNSPECIFIED_TRIAL_DRUG",
+  "training_policy": "all_psg_unsupervised_representation_plus_paired_drug_supervision",
+  "unique_psg_session_count": 84,
+  "representation_training_session_count": 84,
+  "representation_model": "StandardScaler_plus_PCA",
+  "representation_feature_columns": [
+    "ahi",
+    "respiratory_event_count",
+    "sleep_hours",
+    "hypopnea_count",
+    "obstructive_apnea_count",
+    "central_apnea_count",
+    "mixed_apnea_count",
+    "n1_fraction",
+    "n2_fraction",
+    "n3_fraction",
+    "rem_fraction",
+    "wake_epoch_count",
+    "edf_duration_hours",
+    "edf_channel_count",
+    "edf_eeg_median",
+    "edf_eeg_iqr",
+    "edf_eeg_diff_mad",
+    "edf_airflow_median",
+    "edf_airflow_iqr",
+    "edf_airflow_diff_mad",
+    "edf_respiratory_belt_median",
+    "edf_respiratory_belt_iqr",
+    "edf_respiratory_belt_diff_mad",
+    "edf_heart_rate_median",
+    "edf_heart_rate_iqr",
+    "edf_heart_rate_diff_mad",
+    "edf_spo2_median",
+    "edf_spo2_iqr",
+    "edf_spo2_diff_mad"
+  ],
+  "representation_component_count": 5,
+  "unreadable_study_count": 0,
+  "unreadable_studies": [],
+  "complete_pair_count": 40,
+  "drug_count": 19,
+  "placebo_count": 21,
+  "missing_pair_count": 4,
+  "missing_studies": [
+    {
+      "subject_no": "AO14",
+      "missing": "20250203T225705 - e0d27"
+    },
+    {
+      "subject_no": "AO31",
+      "missing": "20250821T224103 - f165b"
+    },
+    {
+      "subject_no": "AO34",
+      "missing": "20250814T223534 - 83fe7"
+    },
+    {
+      "subject_no": "AO43",
+      "missing": "20250826T224429 - 737fb"
+    }
+  ],
+  "duplicate_package_ids_ignored": [
+    "20250427T224010 - 19206",
+    "20250624T225406 - ca0a3"
+  ],
+  "duplicate_content_conflict_count": 0,
+  "duplicate_content_conflicts": [],
+  "duplicate_validation": "SHA256_over_EDF_and_Excel_member_contents",
+  "target": "PSG1_to_PSG2_AHI_reduction_ratio",
+  "cv_mae": 1.5872475082356146,
+  "validation_strategy": "patient_level_5_fold_with_fold_local_scaler_and_PCA",
+  "pca_test_leakage_prevented": true,
+  "raw_edf_waveform_features_used": true,
+  "estimated_relative_effect": -0.22885947409623256,
+  "research_score_adjustment_points": -4.577189481924651,
+  "promotion_allowed": false,
+  "clinical_effectiveness_claim": false,
+  "affects_tonight_risk_model": false,
+  "warning": "未提供試驗藥名；僅可解讀為此未指定試驗藥物相對安慰劑的研究訊號。"
+}

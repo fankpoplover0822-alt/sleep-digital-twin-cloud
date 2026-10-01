@@ -1,0 +1,9 @@
+# Runtime patient files are created on the host and must never enter source control.
+data/incoming/
+data/inference/
+data/processed/
+data/continual_learning/
+__pycache__/
+*.py[cod]
+*.log
+output/

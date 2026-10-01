@@ -1,0 +1,66 @@
+flow:
+  aliases:
+    - Flow
+    - Nasal Flow
+    - Nasal Airflow
+    - Nasal Pressure
+    - Pressure
+
+spo2:
+  aliases:
+    - Saturation
+    - SpO2
+    - SPO2
+    - SaO2
+
+position:
+  aliases:
+    - PosAngle
+    - Position
+    - Body Position
+
+thorax:
+  aliases:
+    - Inductance Thora
+    - Thorax
+    - Thoracic
+    - Chest
+
+abdomen:
+  aliases:
+    - Inductance Abdom
+    - Abdomen
+    - Abdominal
+
+ecg:
+  aliases:
+    - EKG
+    - ECG
+
+snore:
+  aliases:
+    - Snore
+
+thermistor:
+  aliases:
+    - Thermistor
+
+heart_rate:
+  aliases:
+    - Heart Rate
+
+eeg_c3:
+  aliases:
+    - C3
+
+eeg_c4:
+  aliases:
+    - C4
+
+eog_left:
+  aliases:
+    - E1
+
+eog_right:
+  aliases:
+    - E2

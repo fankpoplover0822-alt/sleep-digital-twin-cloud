@@ -1,0 +1,97 @@
+{
+  "model_version": "pap_psg_adherence_20260930T105223839812",
+  "created_at": "2026-09-30T10:52:23+08:00",
+  "model_family": "PAP_ADHERENCE_FROM_BASELINE_PSG_AND_CLINICAL_FEATURES",
+  "clinical_target": "7_day_device_adherence_not_AHI_treatment_effect",
+  "development_patient_count": 96,
+  "locked_holdout_patient_count": 25,
+  "confirmed_followup_adherence_rows": 121,
+  "selected_algorithm": "logistic_balanced",
+  "selected_feature_set": "jsr2024_mechanism_informed",
+  "features": [
+    "BMI",
+    "sex",
+    "age_at_baseline",
+    "ahi",
+    "sleep_hours",
+    "hypopnea_count",
+    "obstructive_apnea_count",
+    "arousal_count",
+    "sleep_efficiency_proxy",
+    "n1_fraction",
+    "n2_fraction",
+    "n3_fraction",
+    "rem_fraction",
+    "arousal_index",
+    "central_apnea_index",
+    "obstructive_apnea_index",
+    "hypopnea_index",
+    "obstructive_event_fraction",
+    "hypopnea_fraction",
+    "jsr2024_pap_cohort_eligible",
+    "therapy_mode_inference",
+    "device_brand"
+  ],
+  "candidate_results": [
+    {
+      "feature_set": "jsr2024_mechanism_informed",
+      "model": "logistic_balanced",
+      "development_cv_roc_auc": 0.485480943738657,
+      "development_cv_log_loss": 0.8269682689606329,
+      "development_cv_balanced_accuracy": 0.4863883847549909
+    },
+    {
+      "feature_set": "jsr2024_mechanism_informed",
+      "model": "random_forest_leaf_4",
+      "development_cv_roc_auc": 0.4768602540834846,
+      "development_cv_log_loss": 0.7314051497039141,
+      "development_cv_balanced_accuracy": 0.4718693284936479
+    },
+    {
+      "feature_set": "baseline",
+      "model": "logistic_balanced",
+      "development_cv_roc_auc": 0.45553539019963707,
+      "development_cv_log_loss": 0.8529721591114017,
+      "development_cv_balanced_accuracy": 0.46007259528130673
+    },
+    {
+      "feature_set": "baseline",
+      "model": "random_forest_leaf_4",
+      "development_cv_roc_auc": 0.4387477313974592,
+      "development_cv_log_loss": 0.740955658694029,
+      "development_cv_balanced_accuracy": 0.3938294010889292
+    },
+    {
+      "feature_set": "jsr2024_mechanism_informed",
+      "model": "extra_trees_leaf_4",
+      "development_cv_roc_auc": 0.39201451905626133,
+      "development_cv_log_loss": 0.7257633596856259,
+      "development_cv_balanced_accuracy": 0.3992740471869328
+    },
+    {
+      "feature_set": "baseline",
+      "model": "extra_trees_leaf_4",
+      "development_cv_roc_auc": 0.37431941923774953,
+      "development_cv_log_loss": 0.7320657896004968,
+      "development_cv_balanced_accuracy": 0.40789473684210525
+    }
+  ],
+  "locked_holdout_roc_auc": 0.6944444444444444,
+  "locked_holdout_balanced_accuracy": 0.7083333333333333,
+  "locked_holdout_log_loss": 0.5858377564872671,
+  "baseline_roc_auc": 0.5,
+  "outperforms_random_auc": true,
+  "sklearn_version": "1.8.0",
+  "promotion_allowed": false,
+  "affects_formal_treatment_score": false,
+  "reason": "Treatment-after data are PAP usage, pressure and leak metrics; no follow-up PSG/AHI is present.",
+  "jsr2024_evidence": {
+    "citation": "Cheng et al., Journal of Sleep Research 2024;33:e13999",
+    "doi": "10.1111/jsr.13999",
+    "role": "mechanism-informed feature engineering and cohort eligibility only",
+    "exact_pup_endotypes_available": false,
+    "safety_note": "Derived indices are observable PSG summaries, not PUP/PUPpy estimates of arousal threshold, collapsibility, loop gain or upper-airway gain.",
+    "feature_set_selected_only_by_development_cv": true,
+    "locked_holdout_not_used_for_selection": true
+  }
+}

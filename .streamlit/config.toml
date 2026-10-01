@@ -1,0 +1,9 @@
+# Streamlit Community Cloud configuration. The EDF upload cap must exceed the
+# largest meeting file (162.9 MB).
+[server]
+maxUploadSize = 400
+maxMessageSize = 400
+headless = true
+
+[client]
+showErrorDetails = false

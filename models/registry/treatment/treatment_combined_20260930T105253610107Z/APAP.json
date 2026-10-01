@@ -1,0 +1,291 @@
+{
+  "treatment": "APAP",
+  "feature_columns": [
+    "sex",
+    "age",
+    "BMI",
+    "hypopnea_count",
+    "obstructive_apnea_count",
+    "ahi",
+    "ahi_severity",
+    "obstructive_event_fraction",
+    "oxygen_burden",
+    "desaturation_depth",
+    "sustained_oxygen_burden",
+    "rem_relevance",
+    "loop_gain_level",
+    "dominant_mechanism",
+    "position_relevance",
+    "position_event_ratio",
+    "known_position_fraction",
+    "oxygen_coupling_level",
+    "coupled_3pct_fraction",
+    "coupled_4pct_fraction",
+    "low_oxygen_away_fraction",
+    "low_oxygen_away_minutes",
+    "low_oxygen_total_minutes",
+    "wake_spo2",
+    "sleep_spo2",
+    "upper_airway_structural_abnormality",
+    "anatomical_obstruction_confirmed",
+    "surgical_anatomical_target_confirmed",
+    "anatomical_target_count",
+    "wearable_device_name",
+    "wearable_average_spo2",
+    "wearable_minimum_spo2",
+    "wearable_time_below_90_percent",
+    "wearable_average_heart_rate",
+    "wearable_apnea_event_count",
+    "wearable_sensor_data_points",
+    "wearable_follow_up_alert",
+    "clinical_feature_count",
+    "raw_position_relevance",
+    "raw_position_event_ratio",
+    "position_cluster_quality_valid",
+    "clinical_anthropometry_weight_kg",
+    "clinical_anthropometry_bmi",
+    "clinical_anthropometry_neck_circumference_cm",
+    "clinical_anthropometry_waist_circumference_cm",
+    "bmi",
+    "body_mass_index",
+    "clinical_device_data_device_name",
+    "clinical_device_data_monitoring_period",
+    "clinical_device_data_minimum_spo2",
+    "clinical_device_data_average_spo2",
+    "clinical_device_data_average_heart_rate",
+    "clinical_device_data_minimum_heart_rate",
+    "clinical_device_data_maximum_heart_rate",
+    "clinical_device_data_time_below_90_percent",
+    "clinical_device_data_apnea_event_count",
+    "clinical_device_data_sensor_data_points",
+    "clinical_device_data_wearable_next_60s_risk",
+    "minimum_spo2"
+  ],
+  "numeric_columns": [
+    "sex",
+    "age",
+    "BMI",
+    "hypopnea_count",
+    "obstructive_apnea_count",
+    "ahi",
+    "obstructive_event_fraction",
+    "position_event_ratio",
+    "known_position_fraction",
+    "coupled_3pct_fraction",
+    "coupled_4pct_fraction",
+    "low_oxygen_away_fraction",
+    "low_oxygen_away_minutes",
+    "low_oxygen_total_minutes",
+    "wake_spo2",
+    "sleep_spo2",
+    "anatomical_target_count",
+    "wearable_average_spo2",
+    "wearable_minimum_spo2",
+    "wearable_time_below_90_percent",
+    "wearable_average_heart_rate",
+    "wearable_apnea_event_count",
+    "wearable_sensor_data_points",
+    "clinical_feature_count",
+    "raw_position_event_ratio",
+    "clinical_anthropometry_weight_kg",
+    "clinical_anthropometry_bmi",
+    "clinical_anthropometry_neck_circumference_cm",
+    "clinical_anthropometry_waist_circumference_cm",
+    "bmi",
+    "body_mass_index",
+    "clinical_device_data_minimum_spo2",
+    "clinical_device_data_average_spo2",
+    "clinical_device_data_average_heart_rate",
+    "clinical_device_data_minimum_heart_rate",
+    "clinical_device_data_maximum_heart_rate",
+    "clinical_device_data_time_below_90_percent",
+    "clinical_device_data_apnea_event_count",
+    "clinical_device_data_sensor_data_points",
+    "clinical_device_data_wearable_next_60s_risk",
+    "minimum_spo2"
+  ],
+  "categorical_columns": [
+    "ahi_severity",
+    "oxygen_burden",
+    "desaturation_depth",
+    "sustained_oxygen_burden",
+    "rem_relevance",
+    "loop_gain_level",
+    "dominant_mechanism",
+    "position_relevance",
+    "oxygen_coupling_level",
+    "upper_airway_structural_abnormality",
+    "anatomical_obstruction_confirmed",
+    "surgical_anatomical_target_confirmed",
+    "wearable_device_name",
+    "wearable_follow_up_alert",
+    "raw_position_relevance",
+    "position_cluster_quality_valid",
+    "clinical_device_data_device_name",
+    "clinical_device_data_monitoring_period"
+  ],
+  "row_count": 50,
+  "patient_count": 20,
+  "weak_label_rows": 50,
+  "confirmed_outcome_rows": 0,
+  "synthetic_test_rows": 0,
+  "metrics": {
+    "validation_status": "patient_group_cross_validation",
+    "fold_count": 5,
+    "selection_metric": "lowest_out_of_fold_mean_absolute_error",
+    "selected_model": "extra_trees_leaf_1",
+    "mae": 0.0906120000000005,
+    "mean_baseline_mae": 0.1450957091503268,
+    "outperforms_mean_baseline": true,
+    "target_standard_deviation": 0.18226233840264422,
+    "r2": 0.5414136269113696,
+    "r2_interpretation": "reported",
+    "candidate_results": [
+      {
+        "model": "extra_trees_leaf_1",
+        "mean_mae": 0.0906120000000005,
+        "fold_mae": [
+          0.11960999999999991,
+          0.15662600000000143,
+          0.03688199999999967,
+          0.046364000000001536,
+          0.09357799999999995
+        ]
+      },
+      {
+        "model": "random_forest_leaf_2",
+        "mean_mae": 0.09223693015560631,
+        "fold_mae": [
+          0.0958879565748929,
+          0.1500379300475594,
+          0.05782247228691837,
+          0.05471764767768726,
+          0.10271864419097358
+        ]
+      },
+      {
+        "model": "gradient_boosting_huber",
+        "mean_mae": 0.09230586129285792,
+        "fold_mae": [
+          0.0919172496849793,
+          0.16467194230905752,
+          0.047777047601288744,
+          0.044818697181854314,
+          0.11234436968710974
+        ]
+      },
+      {
+        "model": "random_forest_leaf_4",
+        "mean_mae": 0.0936765667883785,
+        "fold_mae": [
+          0.09440127738546437,
+          0.14468152097233994,
+          0.06413787186437504,
+          0.05711621211860296,
+          0.10804595160111022
+        ]
+      },
+      {
+        "model": "hist_gradient_boosting",
+        "mean_mae": 0.09783463637255455,
+        "fold_mae": [
+          0.09144122870469439,
+          0.19127907940675018,
+          0.05263790606451413,
+          0.06334407254148695,
+          0.09047089514532711
+        ]
+      },
+      {
+        "model": "extra_trees_leaf_2",
+        "mean_mae": 0.10005600706642401,
+        "fold_mae": [
+          0.11066308777562159,
+          0.16372748229690132,
+          0.06390201279289441,
+          0.05931347757035756,
+          0.10267397489634514
+        ]
+      },
+      {
+        "model": "random_forest_leaf_1",
+        "mean_mae": 0.10071524000000044,
+        "fold_mae": [
+          0.11871500000000024,
+          0.17442000000000085,
+          0.05368963333333303,
+          0.054986066666668075,
+          0.1017655
+        ]
+      },
+      {
+        "model": "shrinkage_rf_50pct",
+        "mean_mae": 0.12055407457516365,
+        "fold_mae": [
+          0.13148250000000006,
+          0.19063007843137322,
+          0.08327189999999987,
+          0.06723003333333347,
+          0.13015586111111155
+        ]
+      },
+      {
+        "model": "shrinkage_rf_25pct",
+        "mean_mae": 0.13282489186274524,
+        "fold_mae": [
+          0.13786625000000005,
+          0.20001111764705914,
+          0.09806303333333329,
+          0.07761501666666674,
+          0.15056904166666682
+        ]
+      },
+      {
+        "model": "shrinkage_rf_10pct",
+        "mean_mae": 0.14018738223529417,
+        "fold_mae": [
+          0.1416965,
+          0.20563974117647071,
+          0.10693771333333331,
+          0.08384600666666667,
+          0.1628169500000001
+        ]
+      },
+      {
+        "model": "ridge_alpha_0_1",
+        "mean_mae": 0.16523643248495154,
+        "fold_mae": [
+          0.07838954798959587,
+          0.18629776154506678,
+          0.10304000994961673,
+          0.2892126232060748,
+          0.1692422197344034
+        ]
+      },
+      {
+        "model": "ridge_alpha_1",
+        "mean_mae": 0.17803625025215988,
+        "fold_mae": [
+          0.11720005644459117,
+          0.17005607034637343,
+          0.08289300637472571,
+          0.3901726391812001,
+          0.1298594789139092
+        ]
+      },
+      {
+        "model": "ridge_alpha_10",
+        "mean_mae": 0.19857904473922236,
+        "fold_mae": [
+          0.15745152350136657,
+          0.2373797693850277,
+          0.10029376004386308,
+          0.36520203167169973,
+          0.1325681390941547
+        ]
+      }
+    ]
+  },
+  "selected_algorithm": "extra_trees_leaf_1",
+  "score_adjustment_allowed": true
+}

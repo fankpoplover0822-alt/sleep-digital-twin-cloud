@@ -1,0 +1,28 @@
+{
+  "target_column": "predict_arousal_next_30s",
+  "row_count": 14165,
+  "patient_count": 19,
+  "positive_count": 4222,
+  "negative_count": 9943,
+  "numeric_feature_count": 328,
+  "categorical_feature_count": 1,
+  "overall_metrics": {
+    "roc_auc": 0.7779553545212449,
+    "average_precision": 0.5436156448290642,
+    "balanced_accuracy": 0.5935440728400104,
+    "precision": 0.6288782816229117,
+    "recall": 0.24964471814306016,
+    "f1": 0.3574092912851814
+  },
+  "confusion_matrix": [
+    [
+      9321,
+      622
+    ],
+    [
+      3168,
+      1054
+    ]
+  ],
+  "classification_report": "              precision    recall  f1-score   support\n\n           0     0.7463    0.9374    0.8310      9943\n           1     0.6289    0.2496    0.3574      4222\n\n    accuracy                         0.7324     14165\n   macro avg     0.6876    0.5935    0.5942     14165\nweighted avg     0.7113    0.7324    0.6899     14165\n"
+}

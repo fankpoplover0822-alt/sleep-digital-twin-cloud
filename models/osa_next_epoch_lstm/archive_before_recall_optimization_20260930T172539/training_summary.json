@@ -1,0 +1,1874 @@
+{
+  "model_version": "osa_next_epoch_lstm_20260930T162224",
+  "architecture": "single-direction causal LSTM",
+  "target": "osa_event_next_30s",
+  "target_definition": "下一個30秒epoch出現阻塞型apnea或hypopnea；中央型與混合型apnea排除",
+  "window_epochs": 7,
+  "history_seconds": 210,
+  "prediction_horizon_seconds": 30,
+  "patient_split": {
+    "train": [
+      "20211021T225624 - a9b0b",
+      "20220421T230923 - 2ccca",
+      "20230801T221115 - e7f9c",
+      "20230826T230519 - 74d0f",
+      "20240223T232831 - ee8ed",
+      "20241219T232019 - 9bbc3",
+      "20250613T224724 - 70e7e",
+      "20250614T224054 - df154",
+      "20250616T000636 - 5a8cd",
+      "20250916T231544 - dba60",
+      "20251022T230528 - 06c72",
+      "20200411T230109 - bd0b6",
+      "20200411T231054 - 64cc4",
+      "20200414T225339 - 56352",
+      "20200416T221618 - 97749",
+      "20200420T224422 - f3976",
+      "20200422T224218 - ec22c",
+      "20200430T225241 - 50ec2",
+      "20200502T225456 - e7201",
+      "20200518T234208 - 1d309",
+      "20200519T232913 - c5c7b",
+      "20200521T225234 - c9eb5",
+      "20200522T231412 - 751a5",
+      "20200525T235647 - 97013",
+      "20200526T234001 - 1ca75",
+      "20200527T222414 - 90b96",
+      "20200529T230418 - 336d9",
+      "20200530T223443 - 8d712",
+      "20200612T232120 - c675c",
+      "20200618T222538 - 99a22",
+      "20200619T221954 - f07e7",
+      "20200701T223756 - 77e5b",
+      "20200701T233414 - 83246",
+      "20200704T225230 - a49b9",
+      "20200707T222444 - 0c985",
+      "20200708T223742 - 8c5f0",
+      "20200713T230801 - b9e14",
+      "20200715T224559 - 8308e",
+      "20200729T232215 - 17fe8",
+      "20200817T223100 - 92add",
+      "20200824T230621 - 15c8d",
+      "20200827T230737 - 78a9a",
+      "20200901T225554 - d49e5",
+      "20200902T225313 - f370c",
+      "20200903T232600 - 46742",
+      "20200910T230520 - 9afc5",
+      "20200914T223948 - f1450",
+      "20200916T233324 - 15752",
+      "20200918T233709 - e7c0d",
+      "20200922T223748 - 19c4f",
+      "20200922T233829 - 2ddec",
+      "20200929T224040 - d5da4",
+      "20201006T221844 - fe048",
+      "20201014T222400 - 411e2",
+      "20201016T230610 - 8257c",
+      "20201017T230727 - 2c0c3",
+      "20201022T225026 - 9522a",
+      "20201022T232538 - 5ee83",
+      "20201028T225002 - af48e",
+      "20201029T232321 - 8ec3e",
+      "20201112T224624 - 089b4",
+      "20201121T231436 - e52a8",
+      "20201124T231452 - d1fa1",
+      "20201125T225002 - 9f903",
+      "20201126T224013 - cb19d",
+      "20201127T222434 - 55317",
+      "20201201T231316 - a799d",
+      "20201203T225844 - fb366",
+      "20201209T233419 - 3404e",
+      "20201218T230425 - 2bfa0",
+      "20201218T231106 - 443bb",
+      "20201221T233353 - 347c5",
+      "20201225T222908 - 5b5ef",
+      "20201228T231711 - 47a7c",
+      "20201229T230748 - 156aa",
+      "20201230T233952 - c70fb",
+      "20210104T223330 - f2a7e",
+      "20210107T230746 - 6bc45",
+      "20210108T233257 - 77d56",
+      "20210113T222228 - d8e12",
+      "20210114T230054 - 06a69",
+      "20210116T221556 - 58e41",
+      "20210119T234649 - bd6e8",
+      "20210119T235632 - 2472d",
+      "20210120T234947 - 0a381",
+      "20210128T221610 - f0e6b",
+      "20210205T232133 - dd243",
+      "20210315T232038 - 0792a",
+      "20210316T235246 - 3a574",
+      "20210317T221009 - 0bad4",
+      "20210317T230132 - b5f9f",
+      "20210318T223529 - 579b1",
+      "20210406T221758 - 0c0e1",
+      "20210421T233412 - 27785",
+      "20210423T220915 - 347b8",
+      "20210427T224458 - 7b419",
+      "20210503T230214 - faadd",
+      "20210515T230845 - e9060",
+      "20210517T230026 - f21c9",
+      "20210521T230904 - bb791",
+      "20210601T231529 - 0f176",
+      "20210616T225928 - b4970",
+      "20210619T223908 - 29e05",
+      "20210626T223116 - 40994",
+      "20210626T232808 - 651a1",
+      "20210706T232146 - 828b6",
+      "20210713T223226 - 950c1",
+      "20210713T224202 - 0f75b",
+      "20210714T222612 - 0d61e",
+      "20210719T224027 - a4178",
+      "20210719T234241 - b59e3",
+      "20210726T224929 - 8c84a",
+      "20210804T223000 - 3feec",
+      "20210804T225125 - fdd66",
+      "20210804T231443 - cfbf7",
+      "20210805T230418 - ea1f9",
+      "20210813T231514 - e4174",
+      "20210819T223722 - e1950",
+      "20210821T222637 - 73434",
+      "20210831T233131 - 140c0",
+      "20210906T225103 - f3b03",
+      "20210907T230217 - 964b6",
+      "20210909T225810 - d5a42",
+      "20210911T232329 - fd2d1",
+      "20210912T000030 - 1e75a",
+      "20210916T233837 - 91840",
+      "20210921T000012 - a5688",
+      "20210923T225847 - 99826",
+      "20210924T233501 - 289e6",
+      "20210926T222531 - 71c7e",
+      "20210929T233815 - c8eb1",
+      "20211001T231750 - 16878",
+      "20211003T224958 - 826f7",
+      "20211004T222045 - e189d",
+      "20211015T223356 - 6e1c9",
+      "20211019T235822 - 15c87",
+      "20211028T224331 - d6a8e",
+      "20211102T234452 - 401d3",
+      "20211103T235421 - 6d1fe",
+      "20211107T234359 - 9519f",
+      "20211113T231344 - d4a1e",
+      "20211116T234601 - e1809",
+      "20211119T231956 - e61e9",
+      "20211121T000946 - 8a369",
+      "20211121T232606 - b94db",
+      "20211123T234949 - 022c1",
+      "20211124T232152 - 9c1ae",
+      "20211209T224909 - 16a1f",
+      "20211215T231302 - 884b4",
+      "20211228T225027 - eea0f",
+      "20211229T233325 - 38ae3",
+      "20211230T222708 - e408f",
+      "20220104T230645 - bf458",
+      "20220312T221750 - 433b6",
+      "20220412T222211 - 06bbe",
+      "20220803T222839 - f3f66",
+      "20230308T222716 - 32571",
+      "20240913T225816 - ad1c7",
+      "20240913T231750 - 9cbba",
+      "20241007T233021 - 91fd6",
+      "20241030T223243 - 3e6b2",
+      "20241031T230202 - 805e5",
+      "20241119T232817 - 696ca",
+      "20241203T231831 - 6ca73",
+      "20250211T220910 - 17a61",
+      "20250217T230024 - d143b",
+      "20250227T225014 - 06af2",
+      "20250416T093837 - 5930d",
+      "20250419T224443 - 8b996",
+      "20250421T230048 - 3555a",
+      "20250427T224725 - 2a2a6",
+      "20250514T225953 - cc636",
+      "20250515T231026 - e2ff5",
+      "20250618T224620 - 969f1",
+      "20250626T224946 - 445f6",
+      "20250717T223933 - 51843",
+      "20250728T225537 - eaa1a",
+      "20250729T231435 - d5f21",
+      "20250801T225202 - 543e4",
+      "20250808T223701 - e37da",
+      "20250814T233620 - f6f06",
+      "20250821T233144 - d0130",
+      "20250903T222248 - e67b1",
+      "20250922T231840 - 1f964",
+      "20201014T221256 - d25c6"
+    ],
+    "validation": [
+      "20211015T231717 - 76b7d",
+      "20211116T222752 - f4d06",
+      "20240222T225441 - 759ed",
+      "20241106T230254 - 91bed",
+      "20200505T222021 - eb6c5",
+      "20200601T221207 - 01055",
+      "20200611T222608 - 7c0b6",
+      "20200611T234954 - 2f1e7",
+      "20200629T234016 - f5d74",
+      "20200715T221141 - 57726",
+      "20200716T232156 - 12bd0",
+      "20200810T234304 - a521c",
+      "20200916T233155 - b05a7",
+      "20200929T222855 - 089f0",
+      "20201005T222853 - 8e38d",
+      "20201021T231446 - a3f76",
+      "20201125T231324 - a4b64",
+      "20201228T000702 - 56d1f",
+      "20210104T233646 - e7b09",
+      "20210105T222206 - d9424",
+      "20210116T221654 - 294e2",
+      "20210119T225039 - 8f2e6",
+      "20210317T000916 - 60bbe",
+      "20210319T225642 - 0e3ad",
+      "20210519T233345 - 2d8f4",
+      "20210616T232340 - 6b7a8",
+      "20210626T224436 - 46a62",
+      "20210918T222415 - 840c8",
+      "20210923T222325 - faf5a",
+      "20211026T233658 - 9df35",
+      "20211103T222817 - 242cd",
+      "20211120T233230 - 1d270",
+      "20211124T221214 - e01d2",
+      "20211206T235023 - 6aa9f",
+      "20211208T220631 - bed80",
+      "20211230T234013 - 946b1",
+      "20220209T222101 - c5f7f",
+      "20220711T230717 - c4dff",
+      "20221221T234300 - 7b12e",
+      "20230320T234234 - 22e0a",
+      "20241215T231539 - 05bea",
+      "20250310T225920 - 55d3b",
+      "20250621T232838 - 376bd",
+      "20250711T223802 - e7129",
+      "20250804T230204 - 25c5d",
+      "20250812T230111 - 1fca2",
+      "20250905T222532 - b68f9"
+    ],
+    "test": [
+      "20220902T232511 - 05138",
+      "20250312T230552 - 5398d",
+      "20250916T233539 - d0f84",
+      "20251027T230734 - d6018"
+    ],
+    "external_test": [
+      "20200422T230908 - bca51",
+      "20200422T231051 - 93392",
+      "20200512T231018 - 4a441",
+      "20200513T225024 - 78171",
+      "20200519T225335 - f75b6",
+      "20200526T231932 - cf79a",
+      "20200530T223909 - 4db37",
+      "20200608T233634 - d316d",
+      "20200702T224838 - 305fc",
+      "20200707T231614 - 2cfaa",
+      "20200805T230659 - 3b4b3",
+      "20200805T232143 - b6a83",
+      "20200812T234826 - d1867",
+      "20200821T231533 - 43ca9",
+      "20200928T224620 - 274dd",
+      "20201020T225254 - 57cc3",
+      "20201023T231413 - 2c006",
+      "20201130T223356 - 607af",
+      "20201209T233731 - f444e",
+      "20201214T232826 - 29b8e",
+      "20201215T235330 - 2cdc0",
+      "20201224T234953 - 89e1a",
+      "20201226T234513 - 824ee",
+      "20201230T222222 - c0cdb",
+      "20210116T225446 - c4fb0",
+      "20210122T224320 - d3f07",
+      "20210122T224631 - 1c243",
+      "20210125T232258 - 49455",
+      "20210204T225125 - b48c7",
+      "20210329T230417 - 8ad97",
+      "20210528T232706 - a056d",
+      "20210529T225322 - 42181",
+      "20210602T232146 - b619f",
+      "20210622T233920 - 0b6d8",
+      "20210705T223333 - d2a36",
+      "20210708T223213 - 96f7b",
+      "20210719T224427 - 33a81",
+      "20210723T223937 - 84c13",
+      "20210729T230854 - 02b15",
+      "20210820T232957 - c3a9f",
+      "20210830T221548 - 96596",
+      "20210902T221102 - 35abb",
+      "20210911T223722 - 789cb",
+      "20210930T230820 - 8c4bb",
+      "20211003T234320 - 565a0",
+      "20211004T235630 - 3c5b9",
+      "20211011T234640 - 6f0ba",
+      "20211021T230928 - 29ac6",
+      "20211025T234324 - 9f844",
+      "20211028T232757 - 17303",
+      "20211029T230747 - 02d51",
+      "20211030T225243 - 35e9e",
+      "20211109T223203 - d3fb9",
+      "20211117T230046 - d7115",
+      "20211208T233833 - b4f71",
+      "20220114T233614 - 0db05",
+      "20221212T232347 - 6ef3e",
+      "20230407T224351 - 9ce51",
+      "20241022T231541 - 6a957",
+      "20241028T222519 - 0fcc2",
+      "20241125T232211 - b4331",
+      "20250124T224614 - 94a9e",
+      "20250504T222925 - 39b18",
+      "20250514T225415 - 85553",
+      "20250522T230324 - aa419",
+      "20250721T225546 - 49fc1"
+    ]
+  },
+  "patient_count": 302,
+  "training_data_provenance": {
+    "baseline_patient_count": 19,
+    "added_patient_count": 283,
+    "added_studies": [
+      {
+        "patient_id": "20200411T230109 - bd0b6",
+        "epoch_rows": 827,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200411T231054 - 64cc4",
+        "epoch_rows": 794,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200414T225339 - 56352",
+        "epoch_rows": 809,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200416T221618 - 97749",
+        "epoch_rows": 832,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200420T224422 - f3976",
+        "epoch_rows": 918,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200422T224218 - ec22c",
+        "epoch_rows": 844,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200422T230908 - bca51",
+        "epoch_rows": 767,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200422T231051 - 93392",
+        "epoch_rows": 784,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200430T225241 - 50ec2",
+        "epoch_rows": 831,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200502T225456 - e7201",
+        "epoch_rows": 835,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200505T222021 - eb6c5",
+        "epoch_rows": 821,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200512T231018 - 4a441",
+        "epoch_rows": 802,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200513T225024 - 78171",
+        "epoch_rows": 808,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200518T234208 - 1d309",
+        "epoch_rows": 723,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200519T225335 - f75b6",
+        "epoch_rows": 856,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200519T232913 - c5c7b",
+        "epoch_rows": 752,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200521T225234 - c9eb5",
+        "epoch_rows": 869,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200522T231412 - 751a5",
+        "epoch_rows": 771,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200525T235647 - 97013",
+        "epoch_rows": 721,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200526T231932 - cf79a",
+        "epoch_rows": 743,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200526T234001 - 1ca75",
+        "epoch_rows": 751,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200527T222414 - 90b96",
+        "epoch_rows": 841,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200529T230418 - 336d9",
+        "epoch_rows": 811,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200530T223443 - 8d712",
+        "epoch_rows": 790,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200530T223909 - 4db37",
+        "epoch_rows": 827,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200601T221207 - 01055",
+        "epoch_rows": 908,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200608T233634 - d316d",
+        "epoch_rows": 769,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200611T222608 - 7c0b6",
+        "epoch_rows": 790,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200611T234954 - 2f1e7",
+        "epoch_rows": 729,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200612T232120 - c675c",
+        "epoch_rows": 739,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200618T222538 - 99a22",
+        "epoch_rows": 843,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200619T221954 - f07e7",
+        "epoch_rows": 811,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200629T234016 - f5d74",
+        "epoch_rows": 720,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200701T223756 - 77e5b",
+        "epoch_rows": 877,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200701T233414 - 83246",
+        "epoch_rows": 774,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200702T224838 - 305fc",
+        "epoch_rows": 809,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200704T225230 - a49b9",
+        "epoch_rows": 772,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200707T222444 - 0c985",
+        "epoch_rows": 851,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200707T231614 - 2cfaa",
+        "epoch_rows": 812,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200708T223742 - 8c5f0",
+        "epoch_rows": 793,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200713T230801 - b9e14",
+        "epoch_rows": 795,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200715T221141 - 57726",
+        "epoch_rows": 899,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200715T224559 - 8308e",
+        "epoch_rows": 845,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200716T232156 - 12bd0",
+        "epoch_rows": 732,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200729T232215 - 17fe8",
+        "epoch_rows": 738,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200805T230659 - 3b4b3",
+        "epoch_rows": 773,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200805T232143 - b6a83",
+        "epoch_rows": 775,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200810T234304 - a521c",
+        "epoch_rows": 722,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200812T234826 - d1867",
+        "epoch_rows": 722,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200817T223100 - 92add",
+        "epoch_rows": 781,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200821T231533 - 43ca9",
+        "epoch_rows": 753,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200824T230621 - 15c8d",
+        "epoch_rows": 787,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200827T230737 - 78a9a",
+        "epoch_rows": 802,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200901T225554 - d49e5",
+        "epoch_rows": 784,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200902T225313 - f370c",
+        "epoch_rows": 831,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200903T232600 - 46742",
+        "epoch_rows": 750,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200910T230520 - 9afc5",
+        "epoch_rows": 722,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200914T223948 - f1450",
+        "epoch_rows": 844,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200916T233155 - b05a7",
+        "epoch_rows": 782,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200916T233324 - 15752",
+        "epoch_rows": 744,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200918T233709 - e7c0d",
+        "epoch_rows": 733,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200922T223748 - 19c4f",
+        "epoch_rows": 808,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200922T233829 - 2ddec",
+        "epoch_rows": 744,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200928T224620 - 274dd",
+        "epoch_rows": 838,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200929T222855 - 089f0",
+        "epoch_rows": 780,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20200929T224040 - d5da4",
+        "epoch_rows": 831,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201005T222853 - 8e38d",
+        "epoch_rows": 800,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201006T221844 - fe048",
+        "epoch_rows": 875,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201014T221256 - d25c6",
+        "epoch_rows": 249,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201014T222400 - 411e2",
+        "epoch_rows": 792,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201016T230610 - 8257c",
+        "epoch_rows": 795,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201017T230727 - 2c0c3",
+        "epoch_rows": 811,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201020T225254 - 57cc3",
+        "epoch_rows": 854,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201021T231446 - a3f76",
+        "epoch_rows": 723,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201022T225026 - 9522a",
+        "epoch_rows": 801,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201022T232538 - 5ee83",
+        "epoch_rows": 726,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201023T231413 - 2c006",
+        "epoch_rows": 820,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201028T225002 - af48e",
+        "epoch_rows": 826,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201029T232321 - 8ec3e",
+        "epoch_rows": 754,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201112T224624 - 089b4",
+        "epoch_rows": 888,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201121T231436 - e52a8",
+        "epoch_rows": 750,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201124T231452 - d1fa1",
+        "epoch_rows": 769,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201125T225002 - 9f903",
+        "epoch_rows": 843,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201125T231324 - a4b64",
+        "epoch_rows": 751,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201126T224013 - cb19d",
+        "epoch_rows": 853,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201127T222434 - 55317",
+        "epoch_rows": 843,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201130T223356 - 607af",
+        "epoch_rows": 855,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201201T231316 - a799d",
+        "epoch_rows": 800,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201203T225844 - fb366",
+        "epoch_rows": 779,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201209T233419 - 3404e",
+        "epoch_rows": 736,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201209T233731 - f444e",
+        "epoch_rows": 740,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201214T232826 - 29b8e",
+        "epoch_rows": 743,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201215T235330 - 2cdc0",
+        "epoch_rows": 723,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201218T230425 - 2bfa0",
+        "epoch_rows": 753,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201218T231106 - 443bb",
+        "epoch_rows": 785,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201221T233353 - 347c5",
+        "epoch_rows": 717,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201224T234953 - 89e1a",
+        "epoch_rows": 747,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201225T222908 - 5b5ef",
+        "epoch_rows": 774,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201226T234513 - 824ee",
+        "epoch_rows": 723,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201228T000702 - 56d1f",
+        "epoch_rows": 729,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201228T231711 - 47a7c",
+        "epoch_rows": 753,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201229T230748 - 156aa",
+        "epoch_rows": 727,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201230T222222 - c0cdb",
+        "epoch_rows": 853,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20201230T233952 - c70fb",
+        "epoch_rows": 721,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210104T223330 - f2a7e",
+        "epoch_rows": 844,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210104T233646 - e7b09",
+        "epoch_rows": 732,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210105T222206 - d9424",
+        "epoch_rows": 880,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210107T230746 - 6bc45",
+        "epoch_rows": 778,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210108T233257 - 77d56",
+        "epoch_rows": 728,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210113T222228 - d8e12",
+        "epoch_rows": 769,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210114T230054 - 06a69",
+        "epoch_rows": 769,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210116T221556 - 58e41",
+        "epoch_rows": 809,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210116T221654 - 294e2",
+        "epoch_rows": 824,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210116T225446 - c4fb0",
+        "epoch_rows": 763,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210119T225039 - 8f2e6",
+        "epoch_rows": 849,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210119T234649 - bd6e8",
+        "epoch_rows": 735,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210119T235632 - 2472d",
+        "epoch_rows": 724,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210120T234947 - 0a381",
+        "epoch_rows": 724,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210122T224320 - d3f07",
+        "epoch_rows": 842,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210122T224631 - 1c243",
+        "epoch_rows": 818,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210125T232258 - 49455",
+        "epoch_rows": 721,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210128T221610 - f0e6b",
+        "epoch_rows": 853,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210204T225125 - b48c7",
+        "epoch_rows": 805,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210205T232133 - dd243",
+        "epoch_rows": 741,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210315T232038 - 0792a",
+        "epoch_rows": 726,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210316T235246 - 3a574",
+        "epoch_rows": 718,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210317T000916 - 60bbe",
+        "epoch_rows": 727,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210317T221009 - 0bad4",
+        "epoch_rows": 888,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210317T230132 - b5f9f",
+        "epoch_rows": 747,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210318T223529 - 579b1",
+        "epoch_rows": 817,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210319T225642 - 0e3ad",
+        "epoch_rows": 845,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210329T230417 - 8ad97",
+        "epoch_rows": 777,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210406T221758 - 0c0e1",
+        "epoch_rows": 839,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210421T233412 - 27785",
+        "epoch_rows": 743,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210423T220915 - 347b8",
+        "epoch_rows": 878,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210427T224458 - 7b419",
+        "epoch_rows": 794,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210503T230214 - faadd",
+        "epoch_rows": 814,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210515T230845 - e9060",
+        "epoch_rows": 783,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210517T230026 - f21c9",
+        "epoch_rows": 795,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210519T233345 - 2d8f4",
+        "epoch_rows": 734,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210521T230904 - bb791",
+        "epoch_rows": 767,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210528T232706 - a056d",
+        "epoch_rows": 733,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210529T225322 - 42181",
+        "epoch_rows": 722,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210601T231529 - 0f176",
+        "epoch_rows": 710,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210602T232146 - b619f",
+        "epoch_rows": 784,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210616T225928 - b4970",
+        "epoch_rows": 778,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210616T232340 - 6b7a8",
+        "epoch_rows": 797,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210619T223908 - 29e05",
+        "epoch_rows": 850,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210622T233920 - 0b6d8",
+        "epoch_rows": 735,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210626T223116 - 40994",
+        "epoch_rows": 747,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210626T224436 - 46a62",
+        "epoch_rows": 765,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210626T232808 - 651a1",
+        "epoch_rows": 743,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210705T223333 - d2a36",
+        "epoch_rows": 764,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210706T232146 - 828b6",
+        "epoch_rows": 726,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210708T223213 - 96f7b",
+        "epoch_rows": 876,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210713T223226 - 950c1",
+        "epoch_rows": 796,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210713T224202 - 0f75b",
+        "epoch_rows": 758,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210714T222612 - 0d61e",
+        "epoch_rows": 855,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210719T224027 - a4178",
+        "epoch_rows": 795,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210719T224427 - 33a81",
+        "epoch_rows": 790,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210719T234241 - b59e3",
+        "epoch_rows": 736,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210723T223937 - 84c13",
+        "epoch_rows": 749,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210726T224929 - 8c84a",
+        "epoch_rows": 776,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210729T230854 - 02b15",
+        "epoch_rows": 742,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210804T223000 - 3feec",
+        "epoch_rows": 858,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210804T225125 - fdd66",
+        "epoch_rows": 798,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210804T231443 - cfbf7",
+        "epoch_rows": 761,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210805T230418 - ea1f9",
+        "epoch_rows": 792,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210813T231514 - e4174",
+        "epoch_rows": 737,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210819T223722 - e1950",
+        "epoch_rows": 773,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210820T232957 - c3a9f",
+        "epoch_rows": 773,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210821T222637 - 73434",
+        "epoch_rows": 811,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210830T221548 - 96596",
+        "epoch_rows": 899,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210831T233131 - 140c0",
+        "epoch_rows": 784,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210902T221102 - 35abb",
+        "epoch_rows": 850,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210906T225103 - f3b03",
+        "epoch_rows": 783,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210907T230217 - 964b6",
+        "epoch_rows": 782,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210909T225810 - d5a42",
+        "epoch_rows": 750,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210911T223722 - 789cb",
+        "epoch_rows": 786,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210911T232329 - fd2d1",
+        "epoch_rows": 737,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210912T000030 - 1e75a",
+        "epoch_rows": 722,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210916T233837 - 91840",
+        "epoch_rows": 728,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210918T222415 - 840c8",
+        "epoch_rows": 832,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210921T000012 - a5688",
+        "epoch_rows": 728,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210923T222325 - faf5a",
+        "epoch_rows": 796,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210923T225847 - 99826",
+        "epoch_rows": 806,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210924T233501 - 289e6",
+        "epoch_rows": 743,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210926T222531 - 71c7e",
+        "epoch_rows": 870,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210929T233815 - c8eb1",
+        "epoch_rows": 778,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20210930T230820 - 8c4bb",
+        "epoch_rows": 766,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211001T231750 - 16878",
+        "epoch_rows": 749,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211003T224958 - 826f7",
+        "epoch_rows": 751,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211003T234320 - 565a0",
+        "epoch_rows": 751,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211004T222045 - e189d",
+        "epoch_rows": 817,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211004T235630 - 3c5b9",
+        "epoch_rows": 739,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211011T234640 - 6f0ba",
+        "epoch_rows": 728,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211015T223356 - 6e1c9",
+        "epoch_rows": 752,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211019T235822 - 15c87",
+        "epoch_rows": 722,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211021T230928 - 29ac6",
+        "epoch_rows": 766,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211025T234324 - 9f844",
+        "epoch_rows": 734,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211026T233658 - 9df35",
+        "epoch_rows": 609,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211028T224331 - d6a8e",
+        "epoch_rows": 824,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211028T232757 - 17303",
+        "epoch_rows": 748,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211029T230747 - 02d51",
+        "epoch_rows": 752,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211030T225243 - 35e9e",
+        "epoch_rows": 779,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211102T234452 - 401d3",
+        "epoch_rows": 716,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211103T222817 - 242cd",
+        "epoch_rows": 786,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211103T235421 - 6d1fe",
+        "epoch_rows": 727,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211107T234359 - 9519f",
+        "epoch_rows": 720,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211109T223203 - d3fb9",
+        "epoch_rows": 789,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211113T231344 - d4a1e",
+        "epoch_rows": 730,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211116T234601 - e1809",
+        "epoch_rows": 760,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211117T230046 - d7115",
+        "epoch_rows": 812,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211119T231956 - e61e9",
+        "epoch_rows": 750,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211120T233230 - 1d270",
+        "epoch_rows": 722,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211121T000946 - 8a369",
+        "epoch_rows": 740,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211121T232606 - b94db",
+        "epoch_rows": 742,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211123T234949 - 022c1",
+        "epoch_rows": 724,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211124T221214 - e01d2",
+        "epoch_rows": 804,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211124T232152 - 9c1ae",
+        "epoch_rows": 741,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211206T235023 - 6aa9f",
+        "epoch_rows": 723,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211208T220631 - bed80",
+        "epoch_rows": 915,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211208T233833 - b4f71",
+        "epoch_rows": 738,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211209T224909 - 16a1f",
+        "epoch_rows": 800,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211215T231302 - 884b4",
+        "epoch_rows": 765,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211228T225027 - eea0f",
+        "epoch_rows": 783,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211229T233325 - 38ae3",
+        "epoch_rows": 717,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211230T222708 - e408f",
+        "epoch_rows": 788,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20211230T234013 - 946b1",
+        "epoch_rows": 726,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20220104T230645 - bf458",
+        "epoch_rows": 783,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20220114T233614 - 0db05",
+        "epoch_rows": 717,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20220209T222101 - c5f7f",
+        "epoch_rows": 799,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20220312T221750 - 433b6",
+        "epoch_rows": 862,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20220412T222211 - 06bbe",
+        "epoch_rows": 816,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20220711T230717 - c4dff",
+        "epoch_rows": 777,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20220803T222839 - f3f66",
+        "epoch_rows": 828,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20221212T232347 - 6ef3e",
+        "epoch_rows": 723,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20221221T234300 - 7b12e",
+        "epoch_rows": 744,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20230308T222716 - 32571",
+        "epoch_rows": 808,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20230320T234234 - 22e0a",
+        "epoch_rows": 737,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20230407T224351 - 9ce51",
+        "epoch_rows": 783,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20240913T225816 - ad1c7",
+        "epoch_rows": 759,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20240913T231750 - 9cbba",
+        "epoch_rows": 789,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20241007T233021 - 91fd6",
+        "epoch_rows": 729,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20241022T231541 - 6a957",
+        "epoch_rows": 713,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20241028T222519 - 0fcc2",
+        "epoch_rows": 835,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20241030T223243 - 3e6b2",
+        "epoch_rows": 646,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20241031T230202 - 805e5",
+        "epoch_rows": 728,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20241119T232817 - 696ca",
+        "epoch_rows": 722,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20241125T232211 - b4331",
+        "epoch_rows": 776,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20241203T231831 - 6ca73",
+        "epoch_rows": 724,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20241215T231539 - 05bea",
+        "epoch_rows": 754,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250124T224614 - 94a9e",
+        "epoch_rows": 725,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250211T220910 - 17a61",
+        "epoch_rows": 810,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250217T230024 - d143b",
+        "epoch_rows": 777,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250227T225014 - 06af2",
+        "epoch_rows": 721,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250310T225920 - 55d3b",
+        "epoch_rows": 721,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250416T093837 - 5930d",
+        "epoch_rows": 741,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250419T224443 - 8b996",
+        "epoch_rows": 721,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250421T230048 - 3555a",
+        "epoch_rows": 747,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250427T224725 - 2a2a6",
+        "epoch_rows": 743,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250504T222925 - 39b18",
+        "epoch_rows": 763,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250514T225415 - 85553",
+        "epoch_rows": 747,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250514T225953 - cc636",
+        "epoch_rows": 732,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250515T231026 - e2ff5",
+        "epoch_rows": 734,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250522T230324 - aa419",
+        "epoch_rows": 740,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250618T224620 - 969f1",
+        "epoch_rows": 732,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250621T232838 - 376bd",
+        "epoch_rows": 723,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250626T224946 - 445f6",
+        "epoch_rows": 718,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250711T223802 - e7129",
+        "epoch_rows": 749,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250717T223933 - 51843",
+        "epoch_rows": 745,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250721T225546 - 49fc1",
+        "epoch_rows": 721,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250728T225537 - eaa1a",
+        "epoch_rows": 723,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250729T231435 - d5f21",
+        "epoch_rows": 728,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250801T225202 - 543e4",
+        "epoch_rows": 728,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250804T230204 - 25c5d",
+        "epoch_rows": 723,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250808T223701 - e37da",
+        "epoch_rows": 845,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250812T230111 - 1fca2",
+        "epoch_rows": 721,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250814T233620 - f6f06",
+        "epoch_rows": 741,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250821T233144 - d0130",
+        "epoch_rows": 739,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250903T222248 - e67b1",
+        "epoch_rows": 791,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250905T222532 - b68f9",
+        "epoch_rows": 763,
+        "source": "inference_features+aligned_event_grid"
+      },
+      {
+        "patient_id": "20250922T231840 - 1f964",
+        "epoch_rows": 768,
+        "source": "inference_features+aligned_event_grid"
+      }
+    ],
+    "excluded_studies": [
+      {
+        "patient_id": "20200616T225805 - 0945c",
+        "reason": "缺少逐epoch PSG特徵"
+      },
+      {
+        "patient_id": "20200806T223033 - 8d99c",
+        "reason": "缺少逐epoch PSG特徵、對齊Event Grid"
+      },
+      {
+        "patient_id": "20201222T223228 - 740e3",
+        "reason": "缺少逐epoch PSG特徵"
+      },
+      {
+        "patient_id": "20201225T233202 - 0d3a5",
+        "reason": "缺少逐epoch PSG特徵"
+      },
+      {
+        "patient_id": "20210831T234223 - 873bf",
+        "reason": "缺少逐epoch PSG特徵"
+      },
+      {
+        "patient_id": "20211023T224048 - 19daa",
+        "reason": "缺少逐epoch PSG特徵"
+      }
+    ],
+    "admission_rule": "requires epoch-level PSG features plus time-aligned Event Grid"
+  },
+  "sequence_count": 231012,
+  "positive_sequence_count": 106946,
+  "threshold_selected_on": "validation patients only",
+  "threshold_policy": "maximize validation recall subject to specificity>=0.91 and precision>=0.86; fallback=max balanced accuracy",
+  "threshold": 0.8199999999999996,
+  "validation_metrics": {
+    "roc_auc": 0.8909854454621174,
+    "average_precision": 0.8651127229348086,
+    "balanced_accuracy": 0.7501598378604469,
+    "precision": 0.8706007529873957,
+    "recall": 0.5892748324192566,
+    "specificity": 0.9110448433016373,
+    "f1": 0.7028312795269087,
+    "true_positive": 10637,
+    "false_positive": 1581,
+    "true_negative": 16192,
+    "false_negative": 7414
+  },
+  "locked_test_metrics": {
+    "roc_auc": 0.9386062759311365,
+    "average_precision": 0.9211667939616307,
+    "balanced_accuracy": 0.782733082168916,
+    "precision": 0.9062146892655367,
+    "recall": 0.6169230769230769,
+    "specificity": 0.9485430874147551,
+    "f1": 0.7340961098398169,
+    "true_positive": 802,
+    "false_positive": 83,
+    "true_negative": 1530,
+    "false_negative": 498
+  },
+  "external_test_metrics": {
+    "roc_auc": 0.8984742965451478,
+    "average_precision": 0.8565131337104513,
+    "balanced_accuracy": 0.7145530675845557,
+    "precision": 0.8941938784210077,
+    "recall": 0.4726240367716642,
+    "specificity": 0.9564820983974471,
+    "f1": 0.6183962264150943,
+    "true_positive": 10488,
+    "false_positive": 1241,
+    "true_negative": 27276,
+    "false_negative": 11703
+  },
+  "training_history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.47006862358633045,
+      "validation_loss": 0.4439486265182495
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.4258776136807033,
+      "validation_loss": 0.44636771082878113
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.4165885597197962,
+      "validation_loss": 0.4410518407821655
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.41051925850819937,
+      "validation_loss": 0.4402674734592438
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.40469970199772937,
+      "validation_loss": 0.44101038575172424
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.4010326390779471,
+      "validation_loss": 0.442871630191803
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.3966124155314447,
+      "validation_loss": 0.44806337356567383
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.393767846051004,
+      "validation_loss": 0.44468656182289124
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.3902274331930102,
+      "validation_loss": 0.45067518949508667
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.3881797044121982,
+      "validation_loss": 0.44912534952163696
+    }
+  ],
+  "clinical_validation": false,
+  "limitations": [
+    "單中心回溯性資料",
+    "患者數有限",
+    "尚未完成外部及前瞻性驗證",
+    "hypopnea依OSA-only研究族群納入，來源資料未提供中央型hypopnea子型"
+  ],
+  "created_at": "2026-09-30T16:22:24+08:00"
+}

@@ -1,0 +1,59 @@
+{
+  "best_f1": {
+    "threshold": 0.3659999999999997,
+    "true_negative": 7451.0,
+    "false_positive": 2492.0,
+    "false_negative": 1342.0,
+    "true_positive": 2880.0,
+    "precision": 0.5361131794489948,
+    "recall": 0.6821411653244908,
+    "specificity": 0.7493714170773409,
+    "negative_predictive_value": 0.8473785966109405,
+    "f1": 0.600375234521576,
+    "balanced_accuracy": 0.7157562912009159,
+    "predicted_positive_count": 5372.0
+  },
+  "best_balanced_accuracy": {
+    "threshold": 0.3659999999999997,
+    "true_negative": 7451.0,
+    "false_positive": 2492.0,
+    "false_negative": 1342.0,
+    "true_positive": 2880.0,
+    "precision": 0.5361131794489948,
+    "recall": 0.6821411653244908,
+    "specificity": 0.7493714170773409,
+    "negative_predictive_value": 0.8473785966109405,
+    "f1": 0.600375234521576,
+    "balanced_accuracy": 0.7157562912009159,
+    "predicted_positive_count": 5372.0
+  },
+  "clinical_high_sensitivity": {
+    "threshold": 0.2669999999999998,
+    "true_negative": 4458.0,
+    "false_positive": 5485.0,
+    "false_negative": 416.0,
+    "true_positive": 3806.0,
+    "precision": 0.40964374125497793,
+    "recall": 0.901468498342018,
+    "specificity": 0.44835562707432364,
+    "negative_predictive_value": 0.9146491588018055,
+    "f1": 0.5633094057574188,
+    "balanced_accuracy": 0.6749120627081708,
+    "predicted_positive_count": 9291.0
+  },
+  "continual_learning": {
+    "threshold": 0.2669999999999998,
+    "true_negative": 4458.0,
+    "false_positive": 5485.0,
+    "false_negative": 416.0,
+    "true_positive": 3806.0,
+    "precision": 0.40964374125497793,
+    "recall": 0.901468498342018,
+    "specificity": 0.44835562707432364,
+    "negative_predictive_value": 0.9146491588018055,
+    "f1": 0.5633094057574188,
+    "balanced_accuracy": 0.6749120627081708,
+    "predicted_positive_count": 9291.0
+  },
+  "high_sensitivity_recall_target": 0.9
+}

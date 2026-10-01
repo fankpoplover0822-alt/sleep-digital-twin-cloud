@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "research_preview": {
+    "enabled": true,
+    "include_recommendation_snapshots_as_weak_training": true,
+    "weak_snapshot_sample_weight": 0.1,
+    "allow_synthetic_outcomes_for_demo_only": true,
+    "synthetic_environment": "RESEARCH_CHALLENGER_ONLY"
+  },
+  "arousal": {
+    "minimum_new_patients": 5,
+    "minimum_new_rows": 3000,
+    "minimum_total_patients": 10,
+    "cross_validation_splits": 5,
+    "decision_threshold": 0.35,
+    "external_validation_approved": false,
+    "promotion_gates": {
+      "minimum_roc_auc": 0.70,
+      "minimum_recall": 0.65,
+      "minimum_specificity": 0.60,
+      "minimum_precision": 0.40,
+      "maximum_roc_auc_drop": 0.02,
+      "maximum_recall_drop": 0.03
+    }
+  },
+  "treatment": {
+    "minimum_outcomes_per_treatment": 20,
+    "minimum_unique_patients_per_treatment": 10,
+    "validation_fraction": 0.20,
+    "maximum_ml_adjustment_points": 15.0,
+    "synthetic_demo_maximum_adjustment_points": 50.0,
+    "minimum_follow_up_days": 14,
+    "maximum_follow_up_days": 1460,
+    "long_follow_up_threshold_days": 730,
+    "long_follow_up_sample_weight": 0.75,
+    "minimum_confirmed_outcomes_for_blending": 20,
+    "confirmed_outcomes_for_full_weight": 50,
+    "maximum_unvalidated_model_weight": 0.35,
+    "maximum_validated_model_weight": 0.80,
+    "require_confirmed_status": true,
+    "require_reviewer_id": true,
+    "require_external_validation_for_promotion": true,
+    "require_atomic_four_model_commit": true,
+    "require_patient_group_validation": true,
+    "reject_unlabelled_supervised_training": true,
+    "outcome_weights": {
+      "ahi_reduction_ratio": 0.40,
+      "spo2_improvement_normalized": 0.20,
+      "symptom_improved": 0.15,
+      "adherence_rate": 0.15,
+      "adverse_event_free": 0.10
+    }
+  }
+}

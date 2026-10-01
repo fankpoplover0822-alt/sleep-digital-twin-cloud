@@ -1,0 +1,23 @@
+{
+  "model_version": "apnea60_20260806T130959",
+  "target": "predict_apnea_next_60s",
+  "prediction_horizon_seconds": 60,
+  "row_count": 15448,
+  "patient_count": 20,
+  "positive_count": 2710,
+  "negative_count": 12738,
+  "threshold": 0.09899999999999992,
+  "threshold_policy": "OOF recall >= 0.90, then maximize specificity",
+  "high_sensitivity_recall_target": 0.9,
+  "valid_cv_folds": 5,
+  "metrics": {
+    "roc_auc": 0.8587914882917081,
+    "average_precision": 0.7017893820559,
+    "balanced_accuracy": 0.6880946918277473,
+    "precision": 0.26763189645716795,
+    "recall": 0.9003690036900369,
+    "specificity": 0.4758203799654577,
+    "f1": 0.41261520250274797
+  },
+  "created_at": "2026-08-06T13:09:59+08:00"
+}

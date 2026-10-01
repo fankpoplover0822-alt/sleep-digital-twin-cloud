@@ -1,0 +1,177 @@
+version: 4.1
+description: >
+  External clinical rule weights and module caps for the treatment
+  refinement adjustment engine, including cross-treatment anatomical rules.
+
+weight_groups:
+  ENT_WEIGHTS:
+    tonsil_hypertrophy: 10.0
+    nasal_septal_deviation: 5.0
+    inferior_turbinate_hypertrophy: 3.0
+    soft_palate_abnormality: 8.0
+    mallampati_iii: 3.0
+    mallampati_iv: 5.0
+
+  ENT_CROSS_TREATMENT_WEIGHTS:
+    nasal_obstruction_pap_penalty: -2.0
+    nasal_obstruction_apap_penalty: -2.0
+    nasal_obstruction_mad_penalty: -1.0
+    tonsil_hypertrophy_mad_penalty: -2.0
+    mallampati_iii_mad_penalty: -1.0
+    mallampati_iv_mad_penalty: -2.0
+    craniofacial_clue_mad_support: 2.0
+
+  DISE_WEIGHTS:
+    velum_collapse: 5.0
+    oropharyngeal_lateral_wall_collapse: 6.0
+    tongue_base_collapse: 6.0
+    epiglottis_collapse: 5.0
+    partial_collapse: 2.0
+    complete_collapse: 4.0
+    multilevel_collapse: 4.0
+    complete_concentric_collapse_penalty: -5.0
+
+  DISE_CROSS_TREATMENT_WEIGHTS:
+    tongue_base_mad_support: 3.0
+    tongue_base_hgns_support: 5.0
+    ap_tongue_base_hgns_support: 2.0
+    multilevel_mad_penalty: -2.0
+    lateral_wall_mad_penalty: -2.0
+    epiglottis_mad_penalty: -2.0
+    ccc_hgns_penalty: -10.0
+    ccc_mad_penalty: -3.0
+    non_ccc_hgns_support: 2.0
+
+  IMAGING_WEIGHTS:
+    nasal_airway_narrowing: 3.0
+    retropalatal_airway_narrowing: 5.0
+    retroglossal_airway_narrowing: 5.0
+    craniofacial_abnormality: 6.0
+    other_anatomical_obstruction: 3.0
+
+  IMAGING_CROSS_TREATMENT_WEIGHTS:
+    nasal_narrowing_pap_penalty: -1.0
+    nasal_narrowing_apap_penalty: -1.0
+    retroglossal_mad_support: 3.0
+    retroglossal_hgns_support: 2.0
+    craniofacial_mad_support: 4.0
+    retropalatal_mad_penalty: -1.0
+    small_airway_area_surgery_support: 2.0
+    small_airway_area_mad_support: 1.0
+
+  PAP_WEIGHTS:
+    excellent_control: 10.0
+    good_control: 6.0
+    partial_control: 2.0
+    persistent_residual_ahi: -6.0
+    severe_residual_ahi: -10.0
+    excellent_adherence: 5.0
+    adequate_adherence: 3.0
+    limited_adherence: -2.0
+    poor_adherence: -5.0
+    good_tolerance: 4.0
+    moderate_tolerance: 1.0
+    poor_tolerance: -5.0
+    acceptable_mask_leak: 1.0
+    high_mask_leak: -3.0
+    acceptable_treatment_spo2: 2.0
+    low_treatment_spo2: -4.0
+    pressure_setting_available: 2.0
+    surgery_effective_pap_penalty: -10.0
+    surgery_pap_failure_support: 8.0
+    surgery_pap_intolerance_support: 5.0
+    surgery_inadequate_trial_support: 0.0
+
+  PREFERENCE_WEIGHTS:
+    strongly_prefer: 8.0
+    prefer: 4.0
+    neutral: 0.0
+    dislike: -4.0
+    strongly_dislike: -8.0
+
+  GOAL_WEIGHTS:
+    avoid_device:
+      CPAP: -3.0
+      APAP: -3.0
+      SURGERY: 3.0
+      Medication: 0.0
+    lowest_invasiveness:
+      CPAP: 3.0
+      APAP: 3.0
+      SURGERY: -4.0
+      Medication: 2.0
+    permanent_treatment:
+      SURGERY: 4.0
+    rapid_symptom_relief:
+      CPAP: 3.0
+      APAP: 3.0
+    reduce_cardiovascular_risk:
+      CPAP: 2.0
+      APAP: 2.0
+
+  COMORBIDITY_WEIGHTS:
+    hypertension:
+      CPAP: 4.0
+      APAP: 3.0
+    heart_failure:
+      CPAP: 6.0
+      APAP: 2.0
+    atrial_fibrillation:
+      CPAP: 4.0
+      APAP: 3.0
+    coronary_artery_disease:
+      CPAP: 4.0
+      APAP: 3.0
+    stroke:
+      CPAP: 5.0
+      APAP: 4.0
+    copd:
+      CPAP: 2.0
+    asthma:
+      CPAP: 2.0
+    diabetes:
+      CPAP: 3.0
+      APAP: 2.0
+    chronic_kidney_disease:
+      CPAP: 3.0
+    obesity:
+      CPAP: 3.0
+      APAP: 3.0
+
+  FOLLOW_UP_WEIGHTS:
+    residual_ahi_good:
+      CPAP: 8.0
+      APAP: 6.0
+    excellent_adherence:
+      CPAP: 5.0
+      APAP: 5.0
+    good_tolerance:
+      CPAP: 4.0
+      APAP: 4.0
+    symptom_improved:
+      CPAP: 6.0
+      APAP: 6.0
+    treatment_continued:
+      CPAP: 3.0
+      APAP: 3.0
+    poor_tolerance:
+      CPAP: -6.0
+      APAP: -6.0
+    poor_adherence:
+      CPAP: -8.0
+      APAP: -8.0
+    persistent_symptoms:
+      CPAP: -5.0
+      APAP: -5.0
+    high_residual_ahi:
+      CPAP: -8.0
+      APAP: -8.0
+
+  MODULE_ADJUSTMENT_CAPS:
+    ENT: 10.0
+    DISE: 10.0
+    IMAGING: 5.0
+    PAP: 15.0
+    PATIENT_PREFERENCE: 8.0
+    COMORBIDITY: 6.0
+    FOLLOW_UP: 10.0
