@@ -1101,40 +1101,10 @@ class RespiratoryFeatureBuilder:
                 for standard_name in (
                     RESPIRATORY_CHANNELS
                 ):
-                    signal = (
-                        source["signals"][
-                            standard_name
-                        ]
-                    )
-
                     sampling_rate = float(
                         source[
                             "sampling_rates"
                         ][standard_name]
-                    )
-
-                    start_sample = int(
-                        round(
-                            start_seconds
-                            * sampling_rate
-                        )
-                    )
-
-                    end_sample = int(
-                        round(
-                            end_seconds
-                            * sampling_rate
-                        )
-                    )
-
-                    start_sample = max(
-                        0,
-                        start_sample,
-                    )
-
-                    end_sample = min(
-                        len(signal),
-                        end_sample,
                     )
 
                     expected_samples = int(
@@ -1144,22 +1114,20 @@ class RespiratoryFeatureBuilder:
                         )
                     )
 
-                    if (
-                        end_sample
-                        <= start_sample
-                    ):
-                        segment = np.empty(
-                            0,
-                            dtype=np.float64,
+                    if "read_segment" in source:
+                        segment = source["read_segment"](
+                            standard_name,
+                            start_seconds,
+                            end_seconds,
                         )
                     else:
+                        signal = source["signals"][standard_name]
+                        start_sample = max(0, int(round(start_seconds * sampling_rate)))
+                        end_sample = min(len(signal), int(round(end_seconds * sampling_rate)))
                         segment = np.asarray(
-                            signal[
-                                start_sample:
-                                end_sample
-                            ],
+                            signal[start_sample:end_sample],
                             dtype=np.float64,
-                        )
+                        ) if end_sample > start_sample else np.empty(0, dtype=np.float64)
 
                     coverage = (
                         len(segment)
@@ -1577,22 +1545,22 @@ class RespiratoryFeatureBuilder:
             raw.info["sfreq"]
         )
 
-        # Read one required channel at a time.  ``load_data`` followed by
-        # ``get_data`` materializes an entire-night float64 matrix and can
-        # exhaust the memory available to a Streamlit Cloud worker.
-        loaded_lookup: dict[str, np.ndarray] = {}
-        for channel_name in selected_channels:
-            values = raw.get_data(picks=[channel_name])[0]
-            loaded_lookup[channel_name] = np.asarray(
-                values,
-                dtype=np.float32,
+        # Decode only one 30-second segment at a time.  This keeps the memory
+        # bound to an epoch instead of the full-night recording.
+        def read_segment(
+            standard_name: str,
+            start_seconds: float,
+            end_seconds: float,
+        ) -> np.ndarray:
+            source_channel = source_channels[standard_name]
+            start = max(0, int(round(start_seconds * common_rate)))
+            stop = min(raw.n_times, int(round(end_seconds * common_rate)))
+            if stop <= start:
+                return np.empty(0, dtype=np.float64)
+            return np.asarray(
+                raw.get_data(picks=[source_channel], start=start, stop=stop)[0],
+                dtype=np.float64,
             )
-
-        signals = {
-            standard_name: loaded_lookup[source_channel]
-            for standard_name, source_channel in source_channels.items()
-            if source_channel is not None
-        }
 
         sampling_rates = {
             standard_name: common_rate
@@ -1601,13 +1569,13 @@ class RespiratoryFeatureBuilder:
         }
 
         return {
-            "backend": "mne_selected_channels",
-            "signals": signals,
+            "backend": "mne_epoch_segments",
             "sampling_rates": (
                 sampling_rates
             ),
             "source_channels": (
                 source_channels
             ),
+            "read_segment": read_segment,
             "close": raw.close,
         }

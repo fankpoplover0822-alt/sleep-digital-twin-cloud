@@ -523,36 +523,6 @@ class StageFeatureBuilder:
                         ][source_channel]
                     )
 
-                    full_signal = (
-                        source[
-                            "signals"
-                        ][source_channel]
-                    )
-
-                    start_sample = int(
-                        round(
-                            start_seconds
-                            * sampling_rate
-                        )
-                    )
-
-                    end_sample = int(
-                        round(
-                            end_seconds
-                            * sampling_rate
-                        )
-                    )
-
-                    start_sample = max(
-                        start_sample,
-                        0,
-                    )
-
-                    end_sample = min(
-                        end_sample,
-                        len(full_signal),
-                    )
-
                     expected_samples = int(
                         round(
                             30.0
@@ -560,22 +530,20 @@ class StageFeatureBuilder:
                         )
                     )
 
-                    if (
-                        end_sample
-                        <= start_sample
-                    ):
-                        signal_segment = (
-                            np.empty(
-                                0,
-                                dtype=np.float64,
-                            )
+                    if "read_segment" in source:
+                        signal_segment = source["read_segment"](
+                            source_channel,
+                            start_seconds,
+                            end_seconds,
                         )
                     else:
+                        full_signal = source["signals"][source_channel]
+                        start_sample = max(int(round(start_seconds * sampling_rate)), 0)
+                        end_sample = min(int(round(end_seconds * sampling_rate)), len(full_signal))
                         signal_segment = (
-                            full_signal[
-                                start_sample:
-                                end_sample
-                            ]
+                            np.empty(0, dtype=np.float64)
+                            if end_sample <= start_sample
+                            else full_signal[start_sample:end_sample]
                         )
 
                     actual_samples = len(
@@ -764,12 +732,21 @@ class StageFeatureBuilder:
             raw.info["sfreq"]
         )
 
-        # Extract one channel at a time.  This prevents a transient float64
-        # matrix containing every selected channel from existing in memory.
-        signals: dict[str, np.ndarray] = {}
-        for label in signal_labels:
-            values = raw.get_data(picks=[label])[0]
-            signals[label] = np.asarray(values, dtype=np.float32)
+        # Read only the requested 30-second epoch.  Keeping a full-night array
+        # per channel still exceeds a small cloud worker for high-rate PSG.
+        def read_segment(
+            label: str,
+            start_seconds: float,
+            end_seconds: float,
+        ) -> np.ndarray:
+            start = max(0, int(round(start_seconds * common_sampling_rate)))
+            stop = min(raw.n_times, int(round(end_seconds * common_sampling_rate)))
+            if stop <= start:
+                return np.empty(0, dtype=np.float64)
+            return np.asarray(
+                raw.get_data(picks=[label], start=start, stop=stop)[0],
+                dtype=np.float64,
+            )
 
         sampling_rates = {
             label: common_sampling_rate
@@ -777,13 +754,13 @@ class StageFeatureBuilder:
         }
 
         return {
-            "backend": "mne_selected_channels",
+            "backend": "mne_epoch_segments",
             "signal_labels": (
                 signal_labels
             ),
-            "signals": signals,
             "sampling_rates": (
                 sampling_rates
             ),
+            "read_segment": read_segment,
             "close": raw.close,
         }
