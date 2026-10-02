@@ -7,7 +7,7 @@ import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import BinaryIO
+from typing import Any, BinaryIO
 from urllib.parse import parse_qs, urlparse
 from urllib.request import Request, urlopen
 
@@ -495,6 +495,33 @@ def save_patient_uploads(
     return patient_folder, file_paths
 
 
+def _uploaded_review_cache_key(saved_files: dict[str, str]) -> tuple[tuple[str, str, int, int], ...]:
+    """Return a content-sensitive, bounded cache key for the upload preview.
+
+    Opening an EDF repeatedly is expensive on Streamlit Community Cloud.  The
+    file metadata makes a replacement upload invalidate the preview without
+    retaining a separate cache entry for every rerun.
+    """
+    entries: list[tuple[str, str, int, int]] = []
+    for label, value in sorted(saved_files.items()):
+        path = Path(value)
+        try:
+            stat = path.stat()
+            entries.append((label, str(path), int(stat.st_mtime_ns), int(stat.st_size)))
+        except OSError:
+            entries.append((label, str(path), -1, -1))
+    return tuple(entries)
+
+
+@st.cache_data(ttl=3600, max_entries=4, show_spinner=False)
+def _load_uploaded_data_review_cached(
+    cache_key: tuple[tuple[str, str, int, int], ...],
+) -> dict[str, Any]:
+    """Parse a saved upload once per file version rather than once per rerun."""
+    paths = {label: path for label, path, _, _ in cache_key}
+    return build_uploaded_data_review(paths)
+
+
 def show_data_processing_review(patient_id: str, saved_files: dict[str, str]) -> bool:
     """Display raw and post-pipeline data lineage in clinician-readable terms."""
     st.markdown('<span class="dt-step">步驟 3 · 資料處理與醫師檢視</span>', unsafe_allow_html=True)
@@ -503,7 +530,9 @@ def show_data_processing_review(patient_id: str, saved_files: dict[str, str]) ->
         "這一頁讓您先確認原始PSG資料、睡眠分期、呼吸事件與品質檢查。"
         "確認後才會啟動模型分析；系統不會把單次新患者PSG直接當成治療效果訓練答案。"
     )
-    review = build_uploaded_data_review(saved_files)
+    review = _load_uploaded_data_review_cached(
+        _uploaded_review_cache_key(saved_files)
+    )
     st.subheader("A. 原始檔案與用途")
     st.dataframe(pd.DataFrame(review.get("files", [])), hide_index=True, width="stretch")
 
@@ -614,7 +643,15 @@ def show_processed_data_review(patient_id: str) -> None:
 
 def show_all_model_data_review() -> None:
     """Allow a meeting participant to inspect all processing records, not only one patient."""
-    with st.expander("模型資料庫：查看全部患者的資料處理與用途", expanded=False):
+    show_index = st.toggle(
+        "顯示模型資料庫的全部患者處理紀錄",
+        value=False,
+        key="show_all_model_processing_index",
+    )
+    if not show_index:
+        st.caption("需要時再展開全部患者處理紀錄，避免分析期間重複讀取大型資料。")
+        return
+    with st.container(border=True):
         st.info(
             "此清單顯示每份PSG被處理成多少個30秒epoch、事件統計、是否已有模型特徵，"
             "以及它在下一epoch研究模型中的訓練／驗證／鎖定測試用途。"
