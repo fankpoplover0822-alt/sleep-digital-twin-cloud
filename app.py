@@ -55,6 +55,10 @@ from clinical_modules.update_merger import MODULE_KEY_MAP
 # ============================================================
 
 PROJECT_ROOT = Path(__file__).resolve().parent
+# Community Cloud stores the previous visitor's files in the same short-lived
+# container.  Never restore that shared pointer into a new browser session:
+# doing so makes every visitor re-read a large EDF before they can upload.
+IS_CLOUD_RUNTIME = PROJECT_ROOT.as_posix().startswith("/mount/src/")
 
 INCOMING_ROOT = PROJECT_ROOT / "data" / "incoming"
 INFERENCE_ROOT = PROJECT_ROOT / "data" / "inference"
@@ -4576,7 +4580,10 @@ if "report_paths" not in st.session_state:
 # Browser refresh clears Streamlit session memory. Reload the last completed
 # patient from a small disk pointer; patient data, learned models and reports
 # themselves are already persisted on disk.
-if not st.session_state.get("saved_patient_id"):
+if (
+    not IS_CLOUD_RUNTIME
+    and not st.session_state.get("saved_patient_id")
+):
     restored_patient_id = restore_active_patient()
     if restored_patient_id:
         st.session_state["saved_patient_id"] = restored_patient_id
