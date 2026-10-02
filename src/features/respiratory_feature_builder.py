@@ -1573,35 +1573,24 @@ class RespiratoryFeatureBuilder:
             )
         )
 
-        raw.pick(selected_channels)
-
-        # 先將選定的整晚 Channel 完整載入，
-        # 再切 30 秒 Epoch，避免逐段讀取 artifacts。
-        raw.load_data()
-
         common_rate = float(
             raw.info["sfreq"]
         )
 
-        all_data = raw.get_data()
-
-        loaded_lookup = {
-            channel_name: np.asarray(
-                all_data[index],
-                dtype=np.float64,
+        # Read one required channel at a time.  ``load_data`` followed by
+        # ``get_data`` materializes an entire-night float64 matrix and can
+        # exhaust the memory available to a Streamlit Cloud worker.
+        loaded_lookup: dict[str, np.ndarray] = {}
+        for channel_name in selected_channels:
+            values = raw.get_data(picks=[channel_name])[0]
+            loaded_lookup[channel_name] = np.asarray(
+                values,
+                dtype=np.float32,
             )
-            for index, channel_name
-            in enumerate(raw.ch_names)
-        }
 
         signals = {
-            standard_name: (
-                loaded_lookup[
-                    source_channel
-                ]
-            )
-            for standard_name, source_channel
-            in source_channels.items()
+            standard_name: loaded_lookup[source_channel]
+            for standard_name, source_channel in source_channels.items()
             if source_channel is not None
         }
 
@@ -1612,7 +1601,7 @@ class RespiratoryFeatureBuilder:
         }
 
         return {
-            "backend": "mne_preload",
+            "backend": "mne_selected_channels",
             "signals": signals,
             "sampling_rates": (
                 sampling_rates

@@ -417,7 +417,7 @@ class StageFeatureBuilder:
         except Exception as exc:
             print(
                 "pyEDFlib 無法讀取，"
-                "改用 MNE preload=True："
+                "改用 MNE 指定通道讀取："
                 f"{exc}"
             )
 
@@ -426,7 +426,7 @@ class StageFeatureBuilder:
             )
 
             print(
-                "EDF backend：MNE preload=True"
+                "EDF backend：MNE 指定通道讀取"
             )
 
         try:
@@ -731,34 +731,45 @@ class StageFeatureBuilder:
         self,
         edf_path: Path,
     ) -> dict[str, Any]:
-        # preload=True 會先將整晚資料載入並完成統一處理，
-        # 再由本程式切割 Epoch，避免逐段讀取造成邊界 artifact。
+        # Do not preload the whole PSG. A compressed EDF can expand to several
+        # GB when every channel is decoded, which exceeds Community Cloud's
+        # memory limit. Read only the mapped channels required by this model.
         raw = mne.io.read_raw_edf(
             edf_path,
-            preload=True,
+            preload=False,
             verbose="ERROR",
         )
 
-        signal_labels = [
+        all_signal_labels = [
             str(label).strip()
             for label in raw.ch_names
         ]
+
+        mapped_channels = self.channel_mapper.map_channels(all_signal_labels)
+        missing_channels = self.channel_mapper.validate_required(
+            mapped_channels,
+            STAGE_CHANNELS,
+        )
+        if missing_channels:
+            raw.close()
+            raise RuntimeError(f"缺少 Stage Channel：{missing_channels}")
+
+        signal_labels = list(dict.fromkeys(
+            mapped_channels[channel]
+            for channel in STAGE_CHANNELS
+            if mapped_channels.get(channel) is not None
+        ))
 
         common_sampling_rate = float(
             raw.info["sfreq"]
         )
 
-        all_data = raw.get_data()
-
-        signals = {
-            label: np.asarray(
-                all_data[index],
-                dtype=np.float64,
-            )
-            for index, label in enumerate(
-                signal_labels
-            )
-        }
+        # Extract one channel at a time.  This prevents a transient float64
+        # matrix containing every selected channel from existing in memory.
+        signals: dict[str, np.ndarray] = {}
+        for label in signal_labels:
+            values = raw.get_data(picks=[label])[0]
+            signals[label] = np.asarray(values, dtype=np.float32)
 
         sampling_rates = {
             label: common_sampling_rate
@@ -766,7 +777,7 @@ class StageFeatureBuilder:
         }
 
         return {
-            "backend": "mne_preload",
+            "backend": "mne_selected_channels",
             "signal_labels": (
                 signal_labels
             ),
