@@ -382,7 +382,6 @@ def clear_analysis_session() -> None:
         "psg_follow_up_result",
         "psg_follow_up_error",
         "pipeline_autorun_patient_id",
-        "pipeline_run_requested_patient_id",
         "data_processing_review_confirmed_patient_id",
     ]
 
@@ -4971,26 +4970,16 @@ run_disabled = (
     or st.session_state.get("data_processing_review_confirmed_patient_id") != saved_patient_id
 )
 
-def request_pipeline_run() -> None:
-    """Persist the click before Streamlit renders the long-running pipeline."""
-    if saved_patient_id:
-        st.session_state["pipeline_run_requested_patient_id"] = saved_patient_id
-
-
 run_button = st.button(
     "開始分析",
     type="primary",
     disabled=run_disabled,
     width="stretch",
-    on_click=request_pipeline_run,
 )
 
 autorun_patient_id = st.session_state.get("pipeline_autorun_patient_id")
-clicked_patient_id = st.session_state.get("pipeline_run_requested_patient_id")
 run_requested = bool(run_button or (
     saved_patient_id and autorun_patient_id == saved_patient_id
-) or (
-    saved_patient_id and clicked_patient_id == saved_patient_id
 ))
 
 if run_requested:
@@ -4999,7 +4988,6 @@ if run_requested:
     # Consume before starting.  A failure stays visible and cannot create an
     # infinite rerun loop; the user can explicitly press Start Analysis again.
     st.session_state.pop("pipeline_autorun_patient_id", None)
-    st.session_state.pop("pipeline_run_requested_patient_id", None)
 
     st.session_state[
         "analysis_failed"
@@ -5011,7 +4999,6 @@ if run_requested:
 
     st.session_state["analysis_running"] = True
 
-    st.info("已收到開始分析指令，正在啟動 Pipeline；請勿重新整理此頁。")
     st.caption("Pipeline 正在執行；詳細紀錄完成後可由下方箭頭展開。")
 
     try:
