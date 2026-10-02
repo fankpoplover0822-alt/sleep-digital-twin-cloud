@@ -5151,6 +5151,16 @@ if run_requested:
 # 顯示上一次執行結果
 # ============================================================
 
+# Keep the next-epoch result beside the analysis controls.  It used to be at
+# the bottom of the page after unrelated sections, which made the patient-
+# specific causal forecast difficult to find.
+render_osa_next_epoch_model(
+    PROJECT_ROOT,
+    str(st.session_state.get("saved_patient_id") or detected_patient_id or ""),
+)
+
+st.divider()
+
 # Session state is per browser tab and may be lost on refresh. Restore the
 # patient's latest durable execution log before rendering the result area.
 if saved_patient_id and not st.session_state.get("pipeline_log"):
@@ -5561,13 +5571,6 @@ if st.session_state.get(
 # ============================================================
 # 重新開始
 # ============================================================
-
-st.divider()
-
-render_osa_next_epoch_model(
-    PROJECT_ROOT,
-    str(st.session_state.get("saved_patient_id") or detected_patient_id or ""),
-)
 
 st.divider()
 

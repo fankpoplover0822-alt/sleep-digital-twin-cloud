@@ -15,9 +15,14 @@ def render_osa_next_epoch_model(project_root: Path, patient_id: str) -> None:
     result_root = project_root / "data" / "inference" / patient_id / "osa_next_epoch_lstm"
     patient_summary_path = result_root / "summary.json"
     prediction_path = result_root / "osa_next_epoch_predictions.csv"
+    prediction_ready = patient_summary_path.exists() and prediction_path.exists()
+    st.markdown(
+        '<span class="dt-step">步驟 5 · 下一個 30 秒 OSA 預測</span>',
+        unsafe_allow_html=True,
+    )
     with st.expander(
         "本次上傳患者：前 N 個 epoch 預測下一個 30 秒 OSA 事件（單向 LSTM）",
-        expanded=False,
+        expanded=prediction_ready,
         icon=":material/timeline:",
     ):
         st.caption(
