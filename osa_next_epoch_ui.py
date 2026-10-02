@@ -16,45 +16,53 @@ def render_osa_next_epoch_model(project_root: Path, patient_id: str) -> None:
     patient_summary_path = result_root / "summary.json"
     prediction_path = result_root / "osa_next_epoch_predictions.csv"
     with st.expander(
-        "前 N 個 epoch 預測下一個 epoch 的 OSA 事件（單向 LSTM）",
+        "本次上傳患者：前 N 個 epoch 預測下一個 30 秒 OSA 事件（單向 LSTM）",
         expanded=False,
         icon=":material/timeline:",
     ):
         st.caption(
-            "研究模組：只使用目前及過去資料；前7個30秒epoch（3.5分鐘）預測下一個30秒epoch。"
-            "陽性限定為阻塞型apnea或hypopnea，中央型與混合型apnea不作為OSA陽性標籤。"
+            "這裡顯示的是本次上傳患者的預測，不是訓練集或測試集的成績。"
+            "模型以該患者前7個30秒epoch（3.5分鐘）預測緊接的下一個30秒是否出現阻塞型apnea或hypopnea。"
         )
         if not model_summary_path.exists():
             st.warning("尚未訓練單向LSTM研究模型。")
             return
-        model_summary = json.loads(model_summary_path.read_text(encoding="utf-8"))
-        test = model_summary.get("locked_test_metrics") or {}
-        columns = st.columns(4)
-        columns[0].metric("獨立測試患者", len((model_summary.get("patient_split") or {}).get("test", [])))
-        columns[1].metric("Test AUROC", f"{float(test.get('roc_auc', 0)):.3f}")
-        columns[2].metric("Test AUPRC", f"{float(test.get('average_precision', 0)):.3f}")
-        columns[3].metric("Test Recall", f"{float(test.get('recall', 0)):.1%}")
-        st.info(
-            "訓練、驗證及鎖定測試按患者分開；警示門檻只由驗證患者選擇，"
-            "測試患者不參與特徵標準化、訓練、早停或門檻調整。"
-        )
         if not patient_summary_path.exists() or not prediction_path.exists():
             st.warning("這位患者尚未執行新版Pipeline；重新分析後才會產生逐epoch結果。")
             return
         patient_summary = json.loads(patient_summary_path.read_text(encoding="utf-8"))
+        predictions_all = pd.read_csv(prediction_path).sort_values("predicted_epoch_index").reset_index(drop=True)
+        if predictions_all.empty:
+            st.warning("此患者沒有足夠的連續 epoch 可產生下一個 30 秒預測。")
+            return
+        latest = predictions_all.iloc[-1]
+        threshold = float(patient_summary.get("threshold") or 0.5)
+        probability = float(latest["osa_next_30s_probability"])
+        latest_start = pd.to_datetime(latest.get("end_time"), errors="coerce")
+        next_window = "—" if pd.isna(latest_start) else (
+            f"{latest_start.strftime('%Y-%m-%d %H:%M:%S')} ～ "
+            f"{(latest_start + pd.Timedelta(seconds=30)).strftime('%H:%M:%S')}"
+        )
+        st.subheader("最新可預測的下一個 30 秒")
         columns = st.columns(4)
-        columns[0].metric("最高下一epoch風險", f"{float(patient_summary.get('maximum_probability') or 0):.1%}")
-        columns[1].metric("平均風險", f"{float(patient_summary.get('mean_probability') or 0):.1%}")
+        columns[0].metric("OSA事件機率", f"{probability:.1%}")
+        columns[1].metric("風險", "高風險：達研究門檻" if probability >= threshold else "未達研究警示門檻")
+        columns[2].metric("預測目標 epoch", int(latest["predicted_epoch_index"]))
+        columns[3].metric("使用歷史 epoch", f"{int(latest['history_start_epoch'])}–{int(latest['epoch_index'])}")
+        st.caption(f"預測時間窗：{next_window}｜研究警示門檻：{threshold:.1%}")
+        columns = st.columns(3)
+        columns[0].metric("本夜最高下一epoch風險", f"{float(patient_summary.get('maximum_probability') or 0):.1%}")
+        columns[1].metric("本夜平均風險", f"{float(patient_summary.get('mean_probability') or 0):.1%}")
         columns[2].metric("超過研究門檻", int(patient_summary.get("alert_count", 0)))
-        columns[3].metric("可預測epoch", int(patient_summary.get("prediction_count", 0)))
-        predictions = pd.read_csv(prediction_path).sort_values("osa_next_30s_probability", ascending=False).head(20)
+        st.subheader("本患者風險最高的20個下一 epoch 預測")
+        predictions = predictions_all.sort_values("osa_next_30s_probability", ascending=False).head(20)
         st.dataframe(
             predictions,
             hide_index=True,
             width="stretch",
             column_config={
                 "osa_next_30s_probability": st.column_config.ProgressColumn(
-                    "下一個30秒OSA風險", min_value=0.0, max_value=1.0, format="percent"
+                    "下一個30秒OSA事件機率", min_value=0.0, max_value=1.0, format="percent"
                 )
             },
         )
