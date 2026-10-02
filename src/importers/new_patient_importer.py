@@ -119,6 +119,10 @@ class NewPatientImporter:
                 "*_stage.xlsx",
                 "*stage*.xls",
                 "*stage*.xlsx",
+                "*_Signal Grid.xls",
+                "*_Signal Grid.xlsx",
+                "*Signal Grid*.xls",
+                "*Signal Grid*.xlsx",
             ],
             file_description="Stage",
         )

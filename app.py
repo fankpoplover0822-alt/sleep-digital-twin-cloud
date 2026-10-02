@@ -46,31 +46,63 @@ def render_wearable_realtime_center(default_patient_id: str = ""):
     from wearable_realtime_ui import render_wearable_realtime_center as implementation
     return implementation(default_patient_id)
 
-from clinical_modules import (
-    get_parser,
-    has_parser,
-)
 
-from clinical_modules.update_parser import (
-    parse_clinical_update,
-)
+# Clinical-data tools are optional after upload.  Lazy imports keep a partial
+# Streamlit Cloud hot reload from taking down the complete PSG pipeline before
+# a user opens the clinical-data section.
+def get_parser(*args, **kwargs):
+    from clinical_modules.registry import get_parser as implementation
+    return implementation(*args, **kwargs)
 
-from clinical_modules.update_service import (
-    refresh_patient,
-    refresh_patient_batch,
-)
 
-from clinical_modules.psg_follow_up_service import (
-    prepare_psg_follow_up,
-    finalize_psg_follow_up,
-    rollback_psg_follow_up,
-    validate_follow_up_files,
-)
+def has_parser(*args, **kwargs):
+    from clinical_modules.registry import has_parser as implementation
+    return implementation(*args, **kwargs)
 
-from clinical_modules.parser_schemas import (
-    get_module_spec,
-)
-from clinical_modules.update_merger import MODULE_KEY_MAP
+
+def parse_clinical_update(*args, **kwargs):
+    from clinical_modules.update_parser import parse_clinical_update as implementation
+    return implementation(*args, **kwargs)
+
+
+def refresh_patient(*args, **kwargs):
+    from clinical_modules.update_service import refresh_patient as implementation
+    return implementation(*args, **kwargs)
+
+
+def refresh_patient_batch(*args, **kwargs):
+    from clinical_modules.update_service import refresh_patient_batch as implementation
+    return implementation(*args, **kwargs)
+
+
+def prepare_psg_follow_up(*args, **kwargs):
+    from clinical_modules.psg_follow_up_service import prepare_psg_follow_up as implementation
+    return implementation(*args, **kwargs)
+
+
+def finalize_psg_follow_up(*args, **kwargs):
+    from clinical_modules.psg_follow_up_service import finalize_psg_follow_up as implementation
+    return implementation(*args, **kwargs)
+
+
+def rollback_psg_follow_up(*args, **kwargs):
+    from clinical_modules.psg_follow_up_service import rollback_psg_follow_up as implementation
+    return implementation(*args, **kwargs)
+
+
+def validate_follow_up_files(*args, **kwargs):
+    from clinical_modules.psg_follow_up_service import validate_follow_up_files as implementation
+    return implementation(*args, **kwargs)
+
+
+def get_module_spec(*args, **kwargs):
+    from clinical_modules.parser_schemas import get_module_spec as implementation
+    return implementation(*args, **kwargs)
+
+
+def get_module_key_map() -> dict[str, str]:
+    from clinical_modules.update_merger import MODULE_KEY_MAP
+    return dict(MODULE_KEY_MAP)
 
 
 # ============================================================
@@ -3004,7 +3036,7 @@ def update_clinical_decision_data(
         )
     )
 
-    module_key_map = dict(MODULE_KEY_MAP)
+    module_key_map = get_module_key_map()
 
     module_key = module_key_map.get(
         module_id
