@@ -14,14 +14,37 @@ from urllib.request import Request, urlopen
 import pandas as pd
 import streamlit as st
 
-from wearable_realtime_ui import render_wearable_realtime_center
 from osa_next_epoch_ui import render_osa_next_epoch_model
-from data_processing_review import (
-    build_all_patient_processing_index,
-    build_processed_data_review,
-    build_training_dataset_overview,
-    build_uploaded_data_review,
-)
+
+
+# Keep optional, heavyweight PSG and wearable modules out of app startup.
+# Streamlit Cloud hot-reloads code while a previous session may still be
+# finishing; importing these modules lazily prevents partial-import errors.
+def build_uploaded_data_review(*args, **kwargs):
+    from data_processing_review import build_uploaded_data_review as implementation
+    return implementation(*args, **kwargs)
+
+
+def build_processed_data_review(*args, **kwargs):
+    from data_processing_review import build_processed_data_review as implementation
+    return implementation(*args, **kwargs)
+
+
+def build_training_dataset_overview(*args, **kwargs):
+    from data_processing_review import build_training_dataset_overview as implementation
+    return implementation(*args, **kwargs)
+
+
+def build_all_patient_processing_index(*args, **kwargs):
+    from data_processing_review import build_all_patient_processing_index as implementation
+    return implementation(*args, **kwargs)
+
+
+def render_wearable_realtime_center(default_patient_id: str = ""):
+    if not default_patient_id:
+        return None
+    from wearable_realtime_ui import render_wearable_realtime_center as implementation
+    return implementation(default_patient_id)
 
 from clinical_modules import (
     get_parser,
