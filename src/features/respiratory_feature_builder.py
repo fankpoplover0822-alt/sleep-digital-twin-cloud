@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 from typing import Any, Callable
+import warnings
 
 import mne
 import numpy as np
@@ -1545,8 +1546,12 @@ class RespiratoryFeatureBuilder:
             raw.info["sfreq"]
         )
 
-        # Decode only one 30-second segment at a time.  This keeps the memory
-        # bound to an epoch instead of the full-night recording.
+        # Keep a bounded rolling cache. It avoids full-night memory use while
+        # replacing thousands of tiny EDF reads with one read per 5-minute
+        # chunk and channel.
+        chunk_seconds = 300.0
+        segment_cache: dict[str, tuple[int, int, np.ndarray]] = {}
+
         def read_segment(
             standard_name: str,
             start_seconds: float,
@@ -1557,10 +1562,23 @@ class RespiratoryFeatureBuilder:
             stop = min(raw.n_times, int(round(end_seconds * common_rate)))
             if stop <= start:
                 return np.empty(0, dtype=np.float64)
-            return np.asarray(
-                raw.get_data(picks=[source_channel], start=start, stop=stop)[0],
-                dtype=np.float64,
-            )
+            cached = segment_cache.get(standard_name)
+            if cached is None or start < cached[0] or stop > cached[1]:
+                chunk_size = max(1, int(round(chunk_seconds * common_rate)))
+                chunk_start = (start // chunk_size) * chunk_size
+                chunk_stop = min(raw.n_times, max(chunk_start + chunk_size, stop))
+                with warnings.catch_warnings():
+                    warnings.filterwarnings(
+                        "ignore",
+                        message="Loading an EDF with mixed sampling frequencies.*",
+                        category=RuntimeWarning,
+                    )
+                    chunk = raw.get_data(
+                        picks=[source_channel], start=chunk_start, stop=chunk_stop
+                    )[0]
+                cached = (chunk_start, chunk_stop, np.asarray(chunk, dtype=np.float64))
+                segment_cache[standard_name] = cached
+            return cached[2][start - cached[0]:stop - cached[0]]
 
         sampling_rates = {
             standard_name: common_rate

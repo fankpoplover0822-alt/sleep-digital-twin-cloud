@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 from typing import Any
+import warnings
 
 import mne
 import numpy as np
@@ -732,8 +733,11 @@ class StageFeatureBuilder:
             raw.info["sfreq"]
         )
 
-        # Read only the requested 30-second epoch.  Keeping a full-night array
-        # per channel still exceeds a small cloud worker for high-rate PSG.
+        # Keep a small rolling per-channel cache. This avoids both a full-night
+        # allocation and thousands of EDF reads (one per epoch and channel).
+        chunk_seconds = 300.0
+        segment_cache: dict[str, tuple[int, int, np.ndarray]] = {}
+
         def read_segment(
             label: str,
             start_seconds: float,
@@ -743,10 +747,23 @@ class StageFeatureBuilder:
             stop = min(raw.n_times, int(round(end_seconds * common_sampling_rate)))
             if stop <= start:
                 return np.empty(0, dtype=np.float64)
-            return np.asarray(
-                raw.get_data(picks=[label], start=start, stop=stop)[0],
-                dtype=np.float64,
-            )
+            cached = segment_cache.get(label)
+            if cached is None or start < cached[0] or stop > cached[1]:
+                chunk_size = max(1, int(round(chunk_seconds * common_sampling_rate)))
+                chunk_start = (start // chunk_size) * chunk_size
+                chunk_stop = min(raw.n_times, max(chunk_start + chunk_size, stop))
+                with warnings.catch_warnings():
+                    warnings.filterwarnings(
+                        "ignore",
+                        message="Loading an EDF with mixed sampling frequencies.*",
+                        category=RuntimeWarning,
+                    )
+                    chunk = raw.get_data(
+                        picks=[label], start=chunk_start, stop=chunk_stop
+                    )[0]
+                cached = (chunk_start, chunk_stop, np.asarray(chunk, dtype=np.float64))
+                segment_cache[label] = cached
+            return cached[2][start - cached[0]:stop - cached[0]]
 
         sampling_rates = {
             label: common_sampling_rate
