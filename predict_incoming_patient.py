@@ -49,7 +49,7 @@ DEMOGRAPHICS_FILE = (
     PROJECT_ROOT
     / "data"
     / "demographics"
-    / "patients.xlsx.xlsx"
+    / "patients.xlsx"
 )
 
 AROUSAL_ARTIFACTS = resolve_arousal_artifacts(PROJECT_ROOT)

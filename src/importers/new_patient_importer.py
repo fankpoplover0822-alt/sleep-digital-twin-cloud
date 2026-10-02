@@ -323,10 +323,16 @@ class NewPatientImporter:
             return None
 
         if not self.demographics_file.exists():
-            raise FileNotFoundError(
-                "找不到基本資料 Excel："
+            # The cloud inference release deliberately has no historical
+            # patient registry.  Demographics improve contextual reporting,
+            # but must not prevent a newly uploaded PSG from being processed.
+            # A local/full installation can still supply the workbook and
+            # will use it exactly as before.
+            print(
+                "找不到基本資料 Excel，將以本次上傳的 PSG 資料繼續分析："
                 f"{self.demographics_file}"
             )
+            return None
 
         workbook = pd.ExcelFile(
             self.demographics_file
